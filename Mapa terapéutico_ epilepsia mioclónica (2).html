@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mapa terapéutico: epilepsia mioclónica, 6 años</title>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Newsreader:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f5f3;--card:#fff;--ink:#16303a;--mute:#5a6f76;--line:#d3dedb;--acc:#1c7a6c;--accbg:#dff0ec;--warn:#a8650f;--warnbg:#fbeed6;--bad:#a8322b;--badbg:#f8e1de;--ok:#256b3a;--okbg:#e0f1e4;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101a1d;--card:#182428;--ink:#e3eeec;--mute:#93a9ad;--line:#2b3d42;--acc:#58c4b2;--accbg:#173a36;--warn:#e6b062;--warnbg:#3a2d15;--bad:#f09088;--badbg:#3e1d1b;--ok:#7fd19a;--okbg:#17321f}}
+:root[data-theme="dark"]{--bg:#101a1d;--card:#182428;--ink:#e3eeec;--mute:#93a9ad;--line:#2b3d42;--acc:#58c4b2;--accbg:#173a36;--warn:#e6b062;--warnbg:#3a2d15;--bad:#f09088;--badbg:#3e1d1b;--ok:#7fd19a;--okbg:#17321f}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Atkinson Hyperlegible",system-ui,sans-serif;min-height:100%}
+h1,h2,h3{font-family:Newsreader,Georgia,serif;line-height:1.2;margin:0 0 .5rem}
+h1{font-size:1.7rem}h2{font-size:1.3rem}h3{font-size:1.05rem}
+.wrap{max-width:980px;margin:0 auto;padding:1rem}
+header{display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;align-items:end;justify-content:space-between;border-bottom:2px solid var(--acc);padding-bottom:.8rem}
+.ctl{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;font-size:.9rem}
+input,select,button{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:6px;padding:.35rem .55rem}
+input{width:5.5rem}
+button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--acc);outline-offset:1px}
+.seg button{border-radius:0}.seg button:first-child{border-radius:6px 0 0 6px}.seg button:last-child{border-radius:0 6px 6px 0}.seg{display:flex;flex-wrap:wrap}
+button.on{background:var(--acc);color:var(--bg);border-color:var(--acc)}
+nav{display:flex;flex-wrap:wrap;gap:.4rem;margin:1rem 0}
+nav button{padding:.45rem .8rem}
+section{display:none}section.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem;margin-bottom:1rem}
+.note{border-left:4px solid var(--warn);background:var(--warnbg);padding:.6rem .8rem;border-radius:0 8px 8px 0;margin:.6rem 0;font-size:.92rem}
+.note.bad{border-color:var(--bad);background:var(--badbg)}.note.ok{border-color:var(--ok);background:var(--okbg)}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th,td{text-align:left;padding:.45rem .5rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;color:var(--mute)}
+.scroll{overflow-x:auto}
+.chip{display:inline-block;padding:.1rem .55rem;border-radius:99px;font-size:.8rem;font-weight:700}
+.c-ok{background:var(--okbg);color:var(--ok)}.c-lo{background:var(--accbg);color:var(--acc)}.c-hi{background:var(--badbg);color:var(--bad)}.c-q{background:var(--warnbg);color:var(--warn)}
+.bar{position:relative;height:10px;background:var(--line);border-radius:5px;min-width:110px}
+.bar i{position:absolute;top:0;bottom:0;background:var(--accbg);border:1px solid var(--acc);border-radius:5px}
+.bar b{position:absolute;top:-3px;width:4px;height:16px;background:var(--ink);border-radius:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.7rem}
+label{display:flex;flex-direction:column;font-size:.85rem;color:var(--mute);gap:.15rem}
+.n{display:none}body.neu .n{display:revert}body.neu .f{display:none}
+.lv{border-left:5px solid var(--acc);padding-left:.7rem;margin:.5rem 0}
+.lv small{color:var(--mute)}
+.small{font-size:.85rem;color:var(--mute)}
+@media(prefers-reduced-motion:no-preference){section.on{animation:in .2s}@keyframes in{from{opacity:.4}to{opacity:1}}}
+.rf{position:relative;cursor:help}.fc{display:none;max-height:70vh;overflow:auto;line-height:1.5;position:absolute;left:0;right:0;top:100%;z-index:9;background:var(--card);border:2px solid var(--acc);border-radius:8px;padding:.7rem .8rem;box-shadow:0 8px 24px rgba(0,0,0,.25);font-size:.88rem;color:var(--ink)}.rf:hover .fc,.rf:focus-within .fc{display:block}a{color:var(--acc)}
+header{align-items:flex-start}.pt{position:relative;margin-left:auto}
+.chip-pt{display:flex;align-items:center;gap:.55rem;border-radius:99px;padding:.4rem .85rem;font-variant-numeric:tabular-nums;font-size:.9rem;letter-spacing:.01em;background:transparent}
+.chip-pt:hover{border-color:var(--acc)}.chip-pt svg{width:12px;height:12px;stroke:var(--mute);fill:none;stroke-width:2;transition:transform .15s}
+.chip-pt[aria-expanded=true] svg{transform:rotate(180deg)}
+.pp{position:absolute;right:0;top:calc(100% + .45rem);z-index:20;width:min(300px,calc(100vw - 2rem));background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.9rem;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.pp[hidden]{display:none}.pp .g2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}.pp input{width:100%;box-sizing:border-box}
+.der{margin-top:.7rem;padding-top:.6rem;border-top:1px solid var(--line);font-size:.82rem;color:var(--mute);font-variant-numeric:tabular-nums}
+.flow{border-left:3px solid var(--acc);margin-left:.9rem;padding-left:1.4rem}.st{position:relative;margin-bottom:1.2rem}.st::before{content:attr(data-n);position:absolute;left:-2.55rem;top:0;width:1.7rem;height:1.7rem;border-radius:50%;background:var(--acc);color:var(--bg);display:grid;place-items:center;font-size:.85rem;font-weight:700}.dec{background:var(--accbg);border-radius:8px;padding:.5rem .7rem;margin:.4rem 0;font-size:.9rem}.dec div{margin:.15rem 0}
+</style></head>
+<body>
+<div class="wrap">
+<header>
+<div><h1>Mapa terapéutico: epilepsia mioclónica</h1><div class="small" id="sub"></div>
+<span class="seg" style="margin-top:.6rem"><button id="aF" class="on">Familia</button><button id="aN">Neurología</button></span></div>
+<div class="pt"><button id="ptb" class="chip-pt" aria-expanded="false" aria-controls="ptp" aria-label="Datos del paciente"><span id="pts"></span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg></button>
+<div id="ptp" class="pp" hidden>
+<div class="g2">
+<label>Peso (kg)<input id="w" type="number" value="26" step="0.5" min="10" max="60"></label>
+<label>Talla (cm)<input id="ht" type="number" value="111" min="60" max="190"></label>
+<label>Edad (años)<input id="age" type="number" value="6" min="1" max="18"></label>
+<label>Sexo<span class="seg"><button data-s="F">F</button><button data-s="M">M</button></span></label>
+</div>
+<div class="der" id="der"></div></div></div>
+</header>
+<nav id="tabs"></nav>
+
+<section id="s0" class="on">
+<div class="note bad"><b>Antes de todo:</b> nunca suspendan ni reduzcan clonazepam, CBD ni ningún antiepiléptico de golpe: puede provocar crisis de rebote. Todo cambio lo decide su neurólogo.</div>
+<div class="card"><h2>Esquema actual, medido por kilo</h2>
+<div class="grid" style="margin-bottom:.7rem">
+<label>CBD del frasco (mg/mL)<input id="cbdc" type="number" value="21" step="1"></label>
+<label>Topamax: mg por tableta<select id="tpm"><option>25</option><option selected>50</option><option>100</option></select></label>
+</div>
+<div class="note">El CBD se calculó con <b>21 mg/mL</b> como hipótesis (si el frasco de 236 mL tuviera 5,000 mg). <b>Hay que confirmarlo en la etiqueta</b>; cambia todo el cálculo.</div>
+<div class="scroll"><table><thead><tr><th>Medicamento</th><th>Toma diaria</th><th>mg/día</th><th>mg/kg/día</th><th>Rango de referencia</th><th>Ubicación</th></tr></thead><tbody id="cur"></tbody></table></div>
+<p class="small">Referencias: levetiracetam 20–60 mg/kg/día y clonazepam mantenimiento 0.1–0.2 mg/kg/día (fichas técnicas, de memoria); topiramato 5–9 mg/kg/día (habitual); CBD purificado 10–20 mg/kg/día (Dravet/LGS), hasta 25 en TSC. Estar fuera de rango no es error: la dosis correcta es la que controla crisis sin toxicidad.</p></div>
+<div class="card"><h3>Lectura rápida</h3>
+<p class="f">Cuatro medicamentos reconocidos más un aceite de cáñamo cuya fuerza aún no conocemos. Lo primero es saber qué trae el frasco.</p>
+<p class="n">Politerapia con 4 mecanismos: GABA-A (clonazepam), SV2A (levetiracetam), Na⁺/GABA/AMPA/anhidrasa (topiramato) y CBD no estandarizado (GPR55, TRPV1, ENT1). El hueco principal es la exposición a CBD y a THC residual: sin COA no se puede interpretar eficacia ni toxicidad. Filtrar síndrome (Doose, Dravet, progresiva) y panel genético.</p>
+<p class="small">Cina 0/1: probablemente homeopatía; no hay evidencia en epilepsia y no sustituye ningún fármaco. No pude verificar el producto.</p></div>
+</section>
+
+<section id="s1">
+<div class="card"><h2>Propuesta: CBD de espectro completo estandarizado</h2>
+<div class="note"><b>Es una propuesta de trabajo para discutir con el neurólogo</b>, no una indicación. La evidencia de espectro completo es observacional (nivel II-III): no demuestra ser mejor que el aislado. Y el CBD de cualquier tipo interactúa con los demás fármacos.</div>
+<div class="grid">
+<label>CBD (mg/mL, del COA)<input id="pc" type="number" value="50"></label>
+<label>THC (mg/mL, del COA)<input id="pt" type="number" value="0.5" step="0.1"></label>
+<label>Dosis inicial (mg/kg/día)<input id="p0" type="number" value="2" step="0.5"></label>
+<label>Escalón semanal (mg/kg/día)<input id="p1" type="number" value="2" step="0.5"></label>
+<label>Meta (mg/kg/día)<input id="p2" type="number" value="6" step="0.5"></label>
+</div>
+<div id="pw"></div>
+<div class="scroll"><table><thead><tr><th>Semana</th><th>mg/kg/día</th><th>mg/día</th><th>mL por toma (×2)</th><th>THC mg/día</th><th>Control</th></tr></thead><tbody id="pt2"></tbody></table></div>
+<p class="small">Meta 6 mg/kg/día = promedio observado con espectro completo en Pamplona 2018, no una dosis probada. El CBD purificado aprobado inicia en 5 mg/kg/día y sube a 10–20 (25 en TSC).</p>
+<h3>Qué cambiaría frente a hoy</h3>
+<p>Reemplazar el aceite sin etiqueta clara por uno con certificado (COA), THC mínimo y lote constante, empatando primero la dosis actual de CBD. Después, si el neurólogo lo decide, titular de a un cambio por vez. Mientras dura la titulación, el clonazepam es el fármaco que más se debe vigilar por sedación.</p>
+<details><summary><b>Revisión de la calculadora del HTML original</b></summary>
+<div class="note ok">Aritmética correcta (kg × mg/kg ÷ concentración ÷ 2). El ejemplo de 20 kg a 1 mg/kg da 0.1 mL por toma con 100 mg/mL.</div>
+<div class="note">Problemas: (1) no incluye THC; (2) la meta "máx. 12 mg/kg" de espectro completo no tiene respaldo; (3) el gráfico semanal (…8 mg/kg) no coincide con las fases de la tabla; (4) solo contempla clobazam y valproato, no clonazepam, topiramato ni levetiracetam; (5) el título "Dosis Recomendada" suena prescriptivo y la afirmación "71 % vs 46 %" se presenta como causal cuando es observacional; (6) aísla concentraciones fijas y no pide el COA.</div></details>
+</div></section>
+
+<section id="s2">
+<div class="card"><h2>Interacciones y perfil de cada fármaco</h2>
+<div class="scroll"><table><thead><tr><th>Par</th><th>Mecanismo</th><th>Qué vigilar</th><th>Evidencia</th></tr></thead><tbody id="ix"></tbody></table></div></div>
+<div class="card"><h2>Perfil individual</h2><div class="scroll"><table><thead><tr><th>Fármaco</th><th>Vía principal</th><th>Vida media (aprox.)</th><th>Cuidado especial</th></tr></thead><tbody id="pk"></tbody></table></div>
+<p class="small n">Vidas medias de adultos o fichas; en niños suelen ser más cortas para LEV y TPM. Verificar con fuentes primarias.</p></div>
+<div class="card"><h2>Laboratorios de control</h2><div class="scroll"><table><thead><tr><th>Cuándo</th><th>Qué pedir</th><th>Por qué</th></tr></thead><tbody id="lab"></tbody></table></div></div>
+</section>
+
+<section id="s3">
+<div class="card"><h2>Qué observar al titular</h2>
+<p>Marquen lo que vean hoy. El resultado orienta cuándo llamar; no sustituye al médico.</p>
+<div id="sym"></div><div id="symo" class="note ok" style="margin-top:.7rem">Sin signos marcados.</div></div>
+<div class="card"><h3>Efecto buscado</h3><p>Menos mioclonías o crisis al día, menos caídas, más alerta y mejor sueño. Anoten fecha, hora y duración en un diario; el cambio real suele verse en semanas, no en días.</p>
+<p class="n small">Medir con diario de crisis y, si se puede, EEG de control; el qEEG como predictor de respuesta es investigación (no práctica clínica).</p></div>
+</section>
+
+<section id="s4">
+<div class="card"><h2>Evidencia por nivel</h2>
+<div class="seg" id="tys" style="margin-bottom:.5rem;flex-wrap:wrap"></div><div class="seg" id="lvs" style="margin-bottom:.5rem"></div><div id="cmp" style="display:none"></div><div id="refs"></div></div>
+<div class="card"><h3>Auditoría de los documentos pegados</h3>
+<div class="note bad">Errores o excesos detectados: Devinsky NEJM es de 2018 (no 2019) y es nivel I; "efecto séquito validado" y "desmantela la patología" son hipótesis; "espectro completo sortea las interacciones P450" es falso; Doose, West, GLUT1, SYNGAP1, KCNQ2/3, SCN2A y PCDH19 no tienen referencias que sostengan el nivel asignado; los 14 y los 7 diagnósticos usan escalas distintas.</div>
+<div class="note bad">Corrección: Pamplona 2018 se publicó en <b>Frontiers in Neurology</b> (no Pharmacology). Con el umbral estándar de respuesta (≥50 %) extractos y CBD purificado rindieron igual (37 % y 42 %); el «71 % contra 46 %» es mejoría referida.</div><p class="small">Pasen el cursor o toquen una referencia para abrir su ficha. «DOI verificado» significa que lo vi escrito en una fuente consultada; no queda ningún DOI de memoria. En esta versión corregí lo que antes di de memoria: los DOI de Gofshteyn y Santiago y el título de Szaflarski. Gaston 2017 no tiene DOI localizado.</p></div>
+</section>
+<section id="s5">
+<div class="note bad"><b>Límite que mantengo:</b> no describo la extracción con butano ni su purgado (cámara de vacío, baño maría). El butano es explosivo y un purgado incompleto deja solvente residual que el niño ingeriría a diario. Aquí solo va la aritmética de concentración y lo que importa farmacológicamente.</div>
+<div class="card"><h2>Extracto de trim «Lemon KSH» en 1 g por 30 mL: lo que sí se puede calcular</h2>
+<p>1 g ÷ 30 mL = <b>33.3 mg de extracto por mL</b>. Cuánto de eso es CBD o THC <b>solo lo dice un análisis de laboratorio</b>; sin él, ninguna dosis es calculable. No pude verificar el perfil de «Lemon KSH»; las variedades tipo «kush» suelen ser dominantes en THC (a confirmar).</p>
+<div class="note">Los valores de abajo son un <b>ejemplo ilustrativo</b>. Reemplácenlos con el análisis real (cannabinoides, solventes residuales, metales y microbiología).</div>
+<div class="grid">
+<label>Extracto (g)<input id="bg" type="number" value="1" step=".1"></label>
+<label>Volumen final (mL)<input id="bv" type="number" value="30"></label>
+<label>THCA %<input id="b1" type="number" value="55"></label>
+<label>THC neutro %<input id="b2" type="number" value="3"></label>
+<label>CBDA %<input id="b3" type="number" value="3"></label>
+<label>CBD neutro %<input id="b4" type="number" value="0.5" step=".1"></label>
+<label>Ácidos convertidos (%)<input id="bc" type="number" value="100"></label>
+<label>CBD objetivo (mg/kg/día)<input id="bt" type="number" value="7" step=".5"></label>
+</div><div id="bo"></div></div>
+<div class="card"><h3>Para discutir con neurología: solo CBD contra extracto completo</h3>
+<div class="scroll"><table><thead><tr><th>Tema</th><th>CBD de grado farmacéutico</th><th>Extracto casero con THC</th></tr></thead><tbody>
+<tr><td>Evidencia</td><td>Ensayos aleatorizados (Dravet, LGS, TSC)</td><td>Observacional; sin ensayos con extractos caseros</td></tr>
+<tr><td>Dosis conocida</td><td>Sí, estandarizada</td><td>No sin análisis; variación hasta 388 mg/mL de THC en caseros (Ríos-Pohl)</td></tr>
+<tr><td>Interacciones</td><td>CBD inhibe CYP2C19; sube topiramato y levetiracetam (Gaston)</td><td>Las mismas del CBD, más THC (CYP2C9 y 3A4) con sedación aditiva al clonazepam</td></tr>
+<tr><td>Riesgos propios</td><td>Hepático, diarrea, somnolencia</td><td>Más solvente residual, THC en cerebro en desarrollo, variación entre lotes</td></tr>
+<tr><td>Terpenos y «séquito»</td><td>Ninguno</td><td>Hipótesis sin ensayos humanos (Russo; Santiago contradice)</td></tr></tbody></table></div>
+<p class="small">Pregunta a llevar: si la familia quiere probar un extracto completo, ¿hay una opción con licencia, análisis por lote y THC mínimo, antes que uno casero?</p></div><div class="card"><h3>Qué mostraron los estudios observacionales con THC y qué dejan como lección</h3>
+<div class="scroll"><table><thead><tr><th>Estudio</th><th>Producto y THC</th><th>Resultado</th><th>Lección</th></tr></thead><tbody>
+<tr><td>Tzadok 2016 (74)</td><td>Aceite CBD:THC 20:1; CBD 1-20 mg/kg/día</td><td>89 % algo de mejoría; 7 % empeoró</td><td>THC bajo y estable se toleró; efectos: somnolencia, irritabilidad, digestivos</td></tr>
+<tr><td>Hausman-Kedem 2018 (46)</td><td>20:1; CBD medio 11.4 mg/kg/día</td><td>56 % ≥50 % menos crisis; 46 % con efectos adversos</td><td>Más dosis y edad <10 años se asociaron a mejor respuesta; la variedad no</td></tr>
+<tr><td>Press 2015 (75)</td><td>Extractos orales; contenido desconocido</td><td>Dravet 23 %, Doose 0 %, LGS 88.9 %</td><td>El síndrome predice más que el producto; sin análisis no se sabe qué se dio</td></tr>
+<tr><td>Resumen AES</td><td>CBD >16:1; 4-12 mg/kg/día</td><td>Encuesta, buena tolerancia</td><td>Origen del umbral ≥16:1 usado aquí</td></tr>
+<tr><td>Ríos-Pohl 2024</td><td>Caseros: THC 0-388 mg/mL</td><td>Análisis químico</td><td>Sin análisis, el THC es una incógnita</td></tr></tbody></table></div>
+<div class="note ok"><b>Conclusiones clínicas:</b> (1) Los estudios con beneficio usaron CBD con THC residual de 1/16 a 1/20, no THC-dominante. (2) Ninguno estuvo cegado ni controlado, y los resultados son referidos por padres. (3) Un concentrado típico de mercado ronda 70 % de THC (Colorado 2025: 70.7 %; Washington 2022: 69 %), así que no se parece a ningún producto estudiado. (4) La guía de Utah sitúa el cannabis THC-dominante solo después de fallar CBD puro y CBD-predominante, y con análisis de riesgo y beneficio.</div>
+<button id="bpm">Cargar promedio de mercado ilustrativo (≈71 % THC, sin CBD)</button></div>
+</section>
+<section id="s6">
+<div class="card"><h2>Ruta crítica: del diagnóstico al tratamiento actual y al protocolo propuesto</h2><p class="small">Cada paso tiene un responsable y decisiones «si… entonces». Es un borrador para llevar a neuropediatría.</p><div class="flow" id="rc"></div></div>
+<div class="card"><h2>Propuesta de valor: por qué este protocolo es distinto</h2>
+<div class="scroll"><table><thead><tr><th>Déficit de los estudios observacionales</th><th>Cómo lo corrige el protocolo</th></tr></thead><tbody>
+<tr><td>Productos sin estandarizar ni análisis</td><td>Certificado (COA) por lote y proporción CBD:THC ≥16:1 antes de iniciar</td></tr>
+<tr><td>Resultados referidos, sin criterio común</td><td>Diario estructurado de 4 semanas y meta predefinida: ≥50 % menos mioclonías a las 12 semanas</td></tr>
+<tr><td>Varios cambios a la vez</td><td>Un cambio por vez, con comida y vehículo constantes</td></tr>
+<tr><td>Seguridad sin laboratorios</td><td>ALT/AST, BH, bicarbonato y niveles en fechas fijas</td></tr>
+<tr><td>Sin plan de reversión</td><td>Regreso pactado a la dosis previa si empeora</td></tr></tbody></table></div>
+<div class="note"><b>Sobre la carga CYP y hepática:</b> la idea de que el espectro completo la reduce usando menos CBD es una hipótesis (6 contra 25 mg/kg en Pamplona, observacional). Con el umbral ≥50 % no hubo diferencia, y el CBD inhibe CYP2C19 en cualquier formulación. Lo medible aquí son ALT/AST y los niveles de topiramato. El esquema actual no incluye valproato, que es el factor que más multiplicó el riesgo hepático en otros estudios.</div></div></section>
+<p class="small">Información educativa. No es prescripción ni sustituye la valoración de su equipo médico.</p>
+</div>
+<script>
+const $=id=>document.getElementById(id),W=()=>+$('w').value||26;
+const T=['Esquema actual','Propuesta','Interacciones y labs','Semiología','Evidencia','Extracto BHO','Ruta crítica'];
+$('tabs').innerHTML=T.map((t,i)=>`<button data-t="${i}" class="${i?'':'on'}">${t}</button>`).join('');
+$('tabs').onclick=e=>{const i=e.target.dataset.t;if(i==null)return;document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==i));document.querySelectorAll('section').forEach((s,j)=>s.classList.toggle('on',j==i))};
+$('aN').onclick=()=>{document.body.classList.add('neu');$('aN').classList.add('on');$('aF').classList.remove('on')};
+$('aF').onclick=()=>{document.body.classList.remove('neu');$('aF').classList.add('on');$('aN').classList.remove('on')};
+
+function cur(){const w=W(),c=+$('cbdc').value||0,t=+$('tpm').value;
+const m=[['Clonazepam (Kriadex)','6+5+8 gotas',1.9,.1,.2],['Levetiracetam (Tamlet-S)','6 mL + 6.5 mL',1250,20,60],['Topiramato (Topamax)','½ tab ×2',t,5,9],['CBD (RH Oil 5)','4 mL + 4.5 mL',8.5*c,10,20]];
+$('cur').innerHTML=m.map(([n,d,mg,lo,hi])=>{const k=mg/w;const q=n.startsWith('CBD');const ch=q?'<span class="chip c-q">dato a confirmar</span>':k<lo?'<span class="chip c-lo">bajo el rango</span>':k>hi?'<span class="chip c-hi">sobre el rango</span>':'<span class="chip c-ok">en rango</span>';const mx=hi*1.6,pos=Math.min(100,k/mx*100);
+return`<tr><td><b>${n}</b></td><td>${d}</td><td>${mg.toFixed(mg<10?1:0)}</td><td><b>${k.toFixed(2)}</b></td><td><div class="bar"><i style="left:${lo/mx*100}%;width:${(hi-lo)/mx*100}%"></i><b style="left:${pos}%"></b></div><span class="small">${lo}–${hi}</span></td><td>${ch}</td></tr>`}).join('')}
+function prop(){const w=W(),c=+$('pc').value||1,th=+$('pt').value||0,a=+$('p0').value,s=+$('p1').value||1,g=+$('p2').value;let r=[],d=a,i=1;
+while(i<=12){r.push([i,Math.min(d,g)]);if(d>=g)break;d+=s;i++}
+const ctl=['Basal: ALT/AST/bilirrubina, BH','Sedación, apetito','ALT/AST (sem. 2–4)','Somnolencia y diarrea','Revisar crisis y labs','Evaluar respuesta'];
+$('pt2').innerHTML=r.map(([n,k],j)=>{const mg=k*w;return`<tr><td>${n}</td><td><b>${k.toFixed(1)}</b></td><td>${mg.toFixed(0)}</td><td>${(mg/2/c).toFixed(2)}</td><td>${(mg/c*th).toFixed(1)}</td><td>${ctl[Math.min(j,5)]}</td></tr>`}).join('');
+const wr=[];if(th>0)wr.push(`THC ${(g*w/c*th).toFixed(1)} mg/día en la meta: exigir COA; en niños conviene el mínimo posible.`);if(g>12)wr.push('Meta sobre 12 mg/kg/día: sin respaldo para espectro completo; usar solo con indicación neurológica.');if(a>5)wr.push('Inicio sobre 5 mg/kg/día: más alto que el inicio del CBD purificado aprobado.');wr.push('Clonazepam activo: pedir al neurólogo si anticipa reducirlo si hay somnolencia o babeo.');
+$('pw').innerHTML=wr.map(x=>`<div class="note">${x}</div>`).join('')}
+const IX=[['CBD + clonazepam','Sedación aditiva; CYP3A4 y 2C19 participan (posible ↑ niveles)','Somnolencia, babeo, ataxia, hipotonía','II-III (indirecta; clobazam sí está probado)'],['CBD + topiramato','Gaston 2017: cambios de niveles de TPM; magnitud a confirmar','Lentitud, parestesias, apetito, acidosis','II'],['CBD + levetiracetam','Sin interacción farmacocinética conocida (LEV no usa CYP)','Irritabilidad, sueño, conducta','II-III'],['Clonazepam + topiramato','Depresión SNC aditiva','Somnolencia, torpeza cognitiva','Clínica'],['Clonazepam + levetiracetam','Sin interacción PK; efectos conductuales suman','Irritabilidad, sedación','Clínica'],['Topiramato + levetiracetam','Efectos cognitivos y de ánimo se suman','Atención, lenguaje, ánimo','Clínica']];
+$('ix').innerHTML=IX.map(r=>'<tr>'+r.map(x=>`<td>${x}</td>`).join('')+'</tr>').join('');
+const PK=[['Clonazepam','CYP3A4 (nitrorreducción)','~30–40 h','Tolerancia, babeo, depresión respiratoria; evitar suspensión brusca'],['Levetiracetam','Hidrólisis no CYP; ~66 % renal sin cambios','~6–8 h','Irritabilidad/ánimo; ajustar en insuficiencia renal'],['Topiramato','~70 % renal sin cambios','~20 h','Acidosis metabólica, cálculos, oligohidrosis, apetito'],['CBD','CYP2C19, 3A4, UGT; inhibe CYP2C19','~56–61 h','Hepatotoxicidad (sobre todo con valproato), diarrea, sedación']];
+$('pk').innerHTML=PK.map(r=>'<tr>'+r.map((x,i)=>`<td>${i?x:'<b>'+x+'</b>'}</td>`).join('')+'</tr>').join('');
+const LB=[['Antes de cambiar CBD','ALT, AST, bilirrubina; BH; bicarbonato; creatinina','Base para comparar'],['Semanas 2 a 4 tras cada cambio','ALT/AST, bilirrubina','CBD eleva transaminasas, sobre todo con valproato'],['Cada 3 meses','Bicarbonato, creatinina, BH','Topiramato (acidosis), riñón, hemoglobina'],['Cada visita','Peso, talla, apetito, sueño, conducta','Crecimiento y efectos de topiramato/levetiracetam'],['Si hay duda','Niveles séricos (TPM; CBD si hay laboratorio)','Confirmar exposición real']];
+$('lab').innerHTML=LB.map(r=>'<tr>'+r.map(x=>`<td>${x}</td>`).join('')+'</tr>').join('');
+const SY=[['Crisis dura más de 5 minutos o no cede',3],['Respira muy lento, labios morados o no despierta',3],['Piel o ojos amarillos, orina oscura',2],['Vómitos persistentes o no tolera líquidos',2],['Sarpullido nuevo extendido o con fiebre',2],['Somnolencia mucha, babeo, se tambalea',1],['Menos apetito o diarrea',1],['Irritabilidad o cambio de ánimo marcado',1],['Hormigueos, lentitud al hablar, sudor escaso con calor',1],['Más mioclonías o crisis que antes',1]];
+$('sym').innerHTML=SY.map(([t,u],i)=>`<label style="flex-direction:row;align-items:center;gap:.5rem;color:var(--ink);font-size:.95rem;padding:.2rem 0"><input type="checkbox" style="width:auto" data-u="${u}">${t}</label>`).join('');
+$('sym').onchange=()=>{const m=Math.max(0,...[...document.querySelectorAll('#sym input:checked')].map(x=>+x.dataset.u));const o=$('symo');o.className='note '+(m==3?'bad':m==2?'bad':m==1?'':'ok');o.innerHTML=['Sin signos marcados.','<b>Avisar al neurólogo hoy</b>: pueden ser efectos del tratamiento. No ajusten dosis solos.','<b>Consulta urgente</b> (mismo día) con laboratorios.','<b>Urgencias ya.</b> Llamen a emergencias.'][m]};
+const RF=[
+["I","p","Devinsky O et al. N Engl J Med 2017;376:2011-20","10.1056/NEJMoa1611618","v","Trial of Cannabidiol for Drug-Resistant Seizures in the Dravet Syndrome","Ensayo doble ciego en 120 niños y jóvenes con Dravet: CBD 20 mg/kg/día o placebo sobre su tratamiento habitual. Crisis convulsivas mensuales de 12.4 a 5.9 con CBD y de 14.9 a 14.1 con placebo (diferencia ajustada −22.8 puntos, p=0.01). Libres de crisis: 5 % contra 0 %, sin significancia. Más abandonos y más eventos adversos con CBD.","Su diagnóstico es «mioclónica», que no equivale a Dravet; este ensayo exigía Dravet. Demuestra que el CBD farmacéutico reduce crisis convulsivas en una encefalopatía con politerapia, pero también que el beneficio viene con más efectos adversos: por eso se piden laboratorios. Si el panel genético resultara SCN1A, esta sería su referencia principal."],
+["I","p","Miller I et al. JAMA Neurol 2020;77:613-21","10.1001/jamaneurol.2020.0073","v","Dose-Ranging Effect of Adjunctive Oral Cannabidiol vs Placebo Dravet","Dravet, comparó 10 y 20 mg/kg/día contra placebo durante 14 semanas. Reducción de crisis convulsivas: 48.7 % con 10, 45.7 % con 20 y 26.9 % con placebo. Eficacia similar con mejor perfil de seguridad y tolerabilidad a 10 mg/kg/día.","Con la hipótesis de ~21 mg/mL el CBD actual andaría en 7-8 mg/kg/día: cerca de la dosis baja que ya mostró eficacia. Este ensayo desalienta subir a ciegas «por si acaso», porque duplicar dosis no mejoró el resultado aquí. Primero hay que confirmar cuánto CBD recibe en realidad."],
+["I","p","Devinsky O et al. N Engl J Med 2018;378:1888-97","10.1056/NEJMoa1714631","v","Effect of Cannabidiol on Drop Seizures in the Lennox-Gastaut Syndrome","225 pacientes (2 a 55 años) con LGS: caídas −41.9 % con 20 mg/kg, −37.2 % con 10 mg/kg y −17.2 % con placebo, en dos tomas al día durante 14 semanas. Mediana basal de 85 caídas en 28 días.","Las crisis atónicas y mioclónico-atónicas comparten el riesgo de caídas. Si su niño tuviera caídas, este es el análogo más cercano; si lo suyo son mioclonías sin caídas, la aplicación es indirecta. Nótese que 10 mg/kg ya funcionó."],
+["I","p","Thiele EA et al. Lancet 2018;391:1085-96","10.1016/S0140-6736(18)30136-3","v","Cannabidiol in patients with seizures associated with Lennox-Gastaut syndrome GWPCARE4","171 pacientes con LGS, CBD 20 mg/kg/día: caídas −43.9 % contra −21.8 % con placebo. Eventos adversos: 86 % con CBD y 69 % con placebo, la mayoría leves o moderados.","Confirma de forma independiente el resultado de Devinsky 2018. Para la familia: que casi 9 de cada 10 tengan algún efecto adverso explica por qué se vigilan sueño, apetito y diarrea; para neurología: hay que contrastarlo con la polifarmacia ya presente (clonazepam, topiramato)."],
+["I","p","Thiele EA et al. JAMA Neurol 2021;78:285-92","10.1001/jamaneurol.2020.4607","v","Add-on Cannabidiol Treatment for Drug-Resistant Seizures in Tuberous Sclerosis Complex","224 pacientes con esclerosis tuberosa: 25 y 50 mg/kg/día redujeron crisis 49 % y 48 % contra 27 % con placebo. Transaminasas elevadas en 18.9 % con CBD y 0 % con placebo; 25 mg/kg dio menos eventos adversos que 50.","Duplicar la dosis no añadió eficacia y sí riesgo hepático. Respalda calendario de ALT/AST y la regla de no escalar sin motivo. No hay valproato en su esquema, que es el factor que más amplificó esta toxicidad en otros estudios."],
+["II","p","Devinsky O et al. Lancet Neurol 2016;15:270-78","10.1016/S1474-4422(15)00379-8","v","Cannabidiol in patients with treatment-resistant epilepsy: an open-label interventional trial","Acceso expandido abierto en 11 centros de EE. UU., 214 pacientes de 1 a 30 años, sin control. 3 % abandonó por un evento adverso; 12 % tuvo eventos graves posiblemente relacionados, el más común estatus epiléptico (6 %).","Ejemplo de que el CBD puede, en algunos casos, empeorar crisis. Es la razón para anotar en el diario cualquier aumento de mioclonías tras un cambio de producto o dosis. Es abierto: el efecto placebo en niños es grande."],
+["II","p","Szaflarski JP et al. Epilepsia 2018;59:1540-48 (resultados del programa de acceso expandido)","10.1111/epi.14477","v","Long-term safety and treatment effects of cannabidiol in children and adults with treatment-resistant epilepsies: Expanded access program results","607 pacientes con CBD farmacéutico, inicio 2-10 mg/kg/día hasta 25-50. 24 % se retiró, sobre todo por falta de eficacia (15 %) y eventos adversos (5 %). Cerca del 10 % tuvo eventos hepáticos y 75 % de ellos tomaba valproato.","Muestra la realidad de la vida diaria: no responde todo el mundo. Aclara que el riesgo hepático se concentra con valproato, que su niño no toma. (Corrijo el título que di antes.)"],
+["II","p","Szaflarski JP et al. Epilepsia (resultados a 4 años, programa de acceso expandido)","10.1111/epi.17496","v","Long-term efficacy and safety of cannabidiol in patients with treatment-resistant epilepsies: 4-year results expanded access program","892 pacientes; los antiepilépticos más frecuentes fueron clobazam (47 %), levetiracetam (34 %) y valproato (28 %). 36 % se retiró (falta de eficacia 19 %, eventos adversos 7 %). Reducción sostenida de crisis hasta 192 semanas.","Un tercio de los pacientes ya tomaba levetiracetam, como su niño: el perfil de seguridad con ese fármaco es conocido. La mayoría de los eventos fue diarrea, crisis y somnolencia, que son los signos a vigilar."],
+["II","pe","Pamplona FA et al. Front Neurol 2018;9:759 (no Front Pharmacol)","10.3389/fneur.2018.00759","v","Potential Clinical Benefits of CBD-Rich Cannabis Extracts Over Purified CBD in Treatment-Resistant Epilepsy","Metaanálisis de estudios observacionales. Mejoría referida: 71 % con extractos ricos en CBD (6.0 mg/kg/día) contra 46 % con CBD purificado (25.3 mg/kg/día). Con el umbral estándar (≥50 % menos crisis) no hubo diferencia: 37 % contra 42 % (p=0.52). Efectos adversos graves: 7 % contra 26 %. Hay fe de erratas.","Es el artículo que sostiene el entusiasmo por el espectro completo y también el que lo desinfla: sin control, sin cegamiento, con productos no estandarizados. Su conclusión útil es pedir ensayos con extractos estandarizados, no sustituir lo probado."],
+["II","p","Geffrey AL et al. Epilepsia 2015;56:1246-51","10.1111/epi.13060","v","Drug-drug interaction between clobazam and cannabidiol in children with refractory epilepsy","13 de 25 niños tomaban clobazam; sus niveles y los de N-desmetilclobazam subieron con CBD. Se redujo la dosis de clobazam en 10 (77 %) y los efectos adversos (77 %) cedieron con esa reducción. Los autores concluyen que el CBD es seguro y eficaz con clobazam.","Su niño no toma clobazam, pero sí clonazepam, otra benzodiazepina. No hay datos publicados aquí sobre clonazepam; es una analogía a vigilar clínicamente: sedación, babeo, torpeza al subir CBD. Es la razón para escalar despacio."],
+["II","p","Gaston TE et al. Epilepsia 2017;58(9):1586-92","","n","Interactions between cannabidiol and commonly used antiepileptic drugs","39 adultos y 42 niños con CBD de 5 a 50 mg/kg/día. Subieron topiramato, rufinamida y N-desmetilclobazam; bajó clobazam (p<0.01). Salvo clobazam, los cambios quedaron dentro del rango terapéutico. DOI no localizado en las fuentes consultadas.","El topiramato de su niño es uno de los afectados: puede acumularse (lentitud, parestesias, falta de apetito, acidosis). Es un argumento concreto para pedir niveles de topiramato al cambiar de CBD."],
+["II","p","Epilepsia Open: análisis final de interacciones CBD y antiepilépticos (programa de acceso expandido)","10.1002/epi4.12815","v","Final analysis of potential drug-drug interactions between highly purified cannabidiol and anti-seizure medications in an open-label expanded access program","Con más CBD aumentaron clobazam, N-desmetilclobazam, valproato libre, felbamato, topiramato, perampanel y levetiracetam. Fuera del clobazam, la relevancia clínica de estos cambios fue incierta.","Es la fuente más cercana a su esquema: tanto topiramato como levetiracetam aparecen. Sugiere medir niveles y observar efectos en vez de asumir seguridad. No fijé autores ni año: dato no verificado."],
+["III","e","Press CA et al. Epilepsy Behav 2015;45:49-52","10.1016/j.yebeh.2015.02.043","v","Parental reporting of response to oral cannabis extracts for treatment of refractory epilepsy","Revisión retrospectiva de 75 niños con extractos de cannabis orales. Respondedores según síndrome: Dravet 23 %, Doose 0 %, LGS 88.9 %. Los autores reconocen que no pudieron saber qué contenían los productos, solo lo que decían los padres, y la califican como evidencia clase III.","Si su niño tuviera síndrome de Doose, la señal para extractos en esta serie es mala (0 % respondedores, muestra pequeña). Es el único estudio de la lista con un dato sobre Doose; fortalece pedir el diagnóstico sindrómico exacto."],
+["III","e","Ríos-Pohl L et al. Epilepsia Open 2024;9:2546-52","10.1002/epi4.13081","v","Chemical analysis and concentrations of cannabidiol substances used for refractory epilepsy in Chilean patients","Análisis HPLC: CBD bioequivalente 89.15 mg/mL con THC 0.015 mg/mL. Productos comerciales no licenciados: CBD de 0.1 a 78.5 mg/mL (promedio 25.41), THC de 0 a 2.43 mg/mL. Caseros: CBD de 0 a 6.6 mg/mL y THC de 0 a 388 mg/mL.","La advertencia más importante para el RH Oil 5 y para cualquier BHO casero: la etiqueta puede estar muy lejos de la realidad, y el THC puede ser mayor que el CBD. Justifica exigir análisis por lote antes de calcular una sola gota."],
+["III","e","Resumen AES: extracto de cannabis con CBD >16:1 en epilepsia pediátrica refractaria","","n","Whole cannabis extract high concentration cannabidiol refractory pediatric epilepsies","Encuesta a padres de niños con epilepsia refractaria que usaron un extracto con CBD >16:1 respecto a otros cannabinoides; dosis terapéutica de CBD de 4 a 12 mg/kg/día; bien tolerado, con somnolencia e inestabilidad. Resumen de congreso, muestra pequeña, sin DOI.","De aquí sale la regla orientativa CBD:THC ≥16:1 de la calculadora BHO. Es evidencia débil, pero describe el único perfil de extracto pediátrico mencionado con una proporción definida.","https://aesnet.org/abstractslisting/whole-cannabis-extract-of-high-concentration-cannabidiol-may-calm-seizures-in-highly-refractory-pediatric-epilepsies"],
+["III","pe","Gofshteyn JS et al. J Child Neurol 2017;32:35-40","10.1177/0883073816669450","v","Cannabidiol as a Potential Treatment for Febrile Infection-Related Epilepsy Syndrome (FIRES)","Serie abierta de 7 niños de 5 centros con FIRES refractario, tratados con CBD farmacéutico en fase aguda o crónica. Los autores la presentan como posible tratamiento, no como prueba. (Corrijo el DOI que di antes.)","No es su cuadro. Está aquí porque los documentos pegados la usan para afirmaciones amplias; con 7 pacientes y sin control no sostiene más que una hipótesis."],
+["IV","m","Ibeas Bih C et al. Neurotherapeutics 2015;12:699-730","10.1007/s13311-015-0377-3","v","Molecular targets of cannabidiol in neurological disorders","Revisión crítica: se han descrito más de 65 dianas del CBD, pero pocas son plausibles en enfermedad neurológica; las más creíbles (VDAC1, GPR55, CaV3.x) se relacionan con el calcio intracelular. El CBD no actúa directo sobre el sistema endocannabinoide, salvo a concentraciones suprafisiológicas.","Explica por qué el CBD se suma a sus fármacos sin repetir mecanismo: clonazepam (GABA-A), levetiracetam (SV2A), topiramato (canales y GABA). También desinfla las listas largas de dianas que circulan en los textos pegados."],
+["IV","m","Russo EB. Br J Pharmacol 2011;163:1344-64","10.1111/j.1476-5381.2011.01238.x","v","Taming THC: potential cannabis synergy and phytocannabinoid-terpenoid entourage effects","Revisión que propone la sinergia entre fitocannabinoides y terpenos como posibilidad. Incluye epilepsia entre las áreas de interés y dice que la sinergia, «si se demuestra», abriría nuevos productos.","Es la base teórica del «efecto séquito». Importa leerlo bien: es una propuesta, con métodos futuros, no una prueba clínica, y no incluye ensayos pediátricos en epilepsia."],
+["IV","m","Santiago M et al. Cannabis Cannabinoid Res 2019;4(3)","10.1089/can.2019.0016","v","Absence of Entourage: Terpenoids Commonly Found in Cannabis sativa Do Not Modulate the Functional Activity of Δ9-THC at Human CB1 and CB2 Receptors","Seis terpenos frecuentes (pineno, cariofileno, linalool, limoneno, mirceno) no activaron CB1 ni CB2 ni modificaron la señal del THC en células humanas (CB1 59 % contra 55 % con terpenos). (Corrijo el DOI que di antes.)","Contradice, en esos receptores, uno de los pilares del «espectro completo». No excluye otras acciones de los terpenos, pero deja sin base el argumento de que mejoran el CBD en CB1/CB2."],
+["V","m","Cogan PS. Expert Rev Clin Pharmacol 2020 (DOI visto en una fuente secundaria)","10.1080/17512433.2020.1721281","q","The entourage effect or hodge-podge hashish: the questionable rebranding, marketing, and expectations of cannabis polypharmacy","Revisión crítica: el efecto séquito nació como idea hipotética en 1998 y se promueve en marketing; las afirmaciones invocan actividades farmacológicas mal definidas, con efectos adversos posibles y no solo beneficios.","Contrapeso útil: si algún proveedor ofrece «espectro completo» como ventaja, sirve para pedirle datos por lote y ensayos, no argumentos."],
+["V","m","Cannabis Cannabinoid Res 2024;9(5):1202-16 (revisión narrativa)","10.1089/can.2023.0052","v","Does the Entourage Effect in Cannabinoids Exist? A Narrative Scoping Review","Concluye que la evidencia clínica de eficacia, seguridad y regulación para productos basados en la hipótesis del séquito es limitada; pide cautela a reguladores, industria y profesionales para no presentarla como fenómeno probado.","Actualiza a 2024 la crítica anterior. Para su caso: apoya pedir que cualquier propuesta de espectro completo venga de la mano de neurología y con análisis, no como sustituto del CBD probado."],
+["III","e","Tzadok M et al. Seizure 2016;35:41-44","10.1016/j.seizure.2016.01.004","v","CBD-enriched medical cannabis for intractable pediatric epilepsy: The current Israeli experience","74 pacientes de 1 a 18 años, resistentes a más de 7 antiepilépticos, con aceite CBD:THC 20:1 (CBD de 1 a 20 mg/kg/día). 66 de 74 (89 %) refirieron menos crisis: 18 % de 75-100 % y 34 % de 50-75 %. 5 (7 %) empeoraron y suspendieron. Efectos: somnolencia, fatiga, digestivos, irritabilidad.","Primer dato con THC a proporción definida. Es retrospectivo y referido por padres. Para su niño: el THC residual de un 20:1 es una fracción pequeña del de un extracto THC-dominante, y aun así hubo 7 % de empeoramiento: exige diario y reversión pactada."],
+["III","e","Hausman-Kedem M et al. 2018 (estudio observacional longitudinal)","","n","Efficacy of CBD-enriched medical cannabis for treatment of refractory epilepsy in children and adolescents observational longitudinal study","57 pacientes de 1 a 20 años con extracto 20:1 durante al menos 3 meses (mediana de seguimiento 18 meses). En 46 evaluables, CBD medio 11.4 mg/kg/día; 56 % redujo crisis al menos 50 % (el resumen dice «≤50 %», parece errata). Mejor respuesta con inicio antes de los 10 años y CBD >11 mg/kg/día. Efectos adversos en 46 %, principal causa de suspensión. No varió por etiología ni por variedad.","Con una proporción conocida hubo respuesta, pero casi la mitad tuvo efectos adversos. La variedad no importó: lo que importa es la proporción y la dosis medidas. DOI no localizado en las fuentes consultadas.","https://cris.tau.ac.il/en/publications/efficacy-of-cbd-enriched-medical-cannabis-for-treatment-of-refrac/"]
+];
+const LV={T:'Todos los niveles',I:'I · Ensayos aleatorizados',II:'II · Cohortes, acceso expandido, metaanálisis observacionales',III:'III · Series y estudios analíticos',IV:'IV · Preclínica y mecanismos',V:'V · Crítica y revisiones'};
+const TY={a:'Todo',p:'CBD purificado',e:'Espectro completo y extractos',m:'Mecanismos y crítica'};
+let sel='T',ty='a';
+$('lvs').innerHTML=Object.keys(LV).map(k=>`<button data-l="${k}" class="${k==sel?'on':''}">${k=='T'?'Todos':'Nivel '+k}</button>`).join('');
+$('tys').innerHTML=Object.keys(TY).map(k=>`<button data-y="${k}" class="${k==ty?'on':''}">${TY[k]}</button>`).join('')+'<button data-y="c">Comparar CBD y espectro completo</button>';
+const CMP=[['Mejor evidencia','5 ensayos doble ciego (Dravet, LGS, TSC)','Ningún ensayo aleatorizado; solo observacionales (Pamplona, Press, AES)'],['Efecto','Reducción de crisis 44-49 % contra 22-27 % con placebo (Thiele 2018, Miller 2020, Thiele 2021)','Respondedores ≥50 %: 37 % con extractos contra 42 % con purificado, p=0.52 (Pamplona)'],['Dosis','10 a 25 mg/kg/día en ensayos; 10 funcionó casi igual que 20 en Dravet (Miller)','~6 mg/kg/día de CBD referidos; dosis no verificada con laboratorio'],['Contenido real','Estandarizado','Muy variable: THC hasta 388 mg/mL en caseros (Ríos-Pohl); «no pudimos saber qué contenían» (Press)'],['Seguridad','Más efectos adversos que placebo; transaminasas 18.9 % en TSC','Graves 7 % contra 26 % (Pamplona), pero referido por padres, sin control'],['Doose / mioclónica','Sin ensayo específico','Doose 0 % respondedores en una serie de 75 niños (Press)'],['Interacciones','CBD sube topiramato, levetiracetam y clobazam (Gaston)','Las mismas del CBD, más las del THC; el espectro completo no las evita']];
+$('cmp').innerHTML='<div class="scroll"><table><thead><tr><th>Tema</th><th>CBD purificado</th><th>Espectro completo y extractos</th></tr></thead><tbody>'+CMP.map(r=>'<tr>'+r.map((x,i)=>`<td>${i?x:'<b>'+x+'</b>'}</td>`).join('')+'</tr>').join('')+'</tbody></table></div><p class="small">Lectura: la evidencia probada es de CBD purificado; la del espectro completo es hipótesis con datos de baja calidad. La diferencia clave para su caso es la fiabilidad del contenido.</p>';
+function refs(){const st={v:'<span class="chip c-ok">DOI verificado</span>',q:'<span class="chip c-q">DOI en fuente secundaria</span>',n:'<span class="chip c-q">sin DOI localizado</span>'};
+$('cmp').style.display=ty=='c'?'block':'none';
+const L=RF.filter(r=>(sel=='T'||r[0]==sel)&&(ty=='a'||ty=='c'||r[1].includes(ty)));
+$('refs').style.display=ty=='c'?'none':'block';
+$('refs').innerHTML=`<p><b>${LV[sel]}</b> · ${L.length} referencias</p>`+L.map(r=>{const d=r[3]?`<a href="https://doi.org/${r[3]}" target="_blank" rel="noopener">doi:${r[3]}</a> · `:(r[8]?`<a href="${r[8]}" target="_blank" rel="noopener">fuente original</a> · `:'');return`<div class="lv rf" tabindex="0"><div>${r[2]} ${st[r[4]]}</div><div class="small">${d}<a href="https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(r[5])}" target="_blank" rel="noopener">buscar en PubMed</a></div><div class="fc"><b>Hallazgo.</b> ${r[6]}<br><br><b>En este caso.</b> ${r[7]}</div></div>`}).join('')}
+$('lvs').onclick=e=>{if(!e.target.dataset.l)return;sel=e.target.dataset.l;document.querySelectorAll('#lvs button').forEach(b=>b.classList.toggle('on',b.dataset.l==sel));refs()};
+$('tys').onclick=e=>{if(!e.target.dataset.y)return;ty=e.target.dataset.y;document.querySelectorAll('#tys button').forEach(b=>b.classList.toggle('on',b.dataset.y==ty));refs()};
+let sx='';
+function pt(){const w=W(),a=+$('age').value||0,h=+$('ht').value||0;$('pts').textContent=`${w} kg · ${a} a · ${h} cm`;
+$('sub').textContent=`${sx=='F'?'Niña':sx=='M'?'Niño':'Niña/o'} de ${a} años · datos para conversar con su neurólogo, no para cambiar dosis`;
+$('der').textContent=h>0?`IMC ${(w/((h/100)**2)).toFixed(1)} kg/m² · Superficie corporal ${Math.sqrt(h*w/3600).toFixed(2)} m² · referencial`:''}
+document.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{sx=sx==b.dataset.s?'':b.dataset.s;document.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x.dataset.s==sx));pt()});
+const pb=$('ptb'),pp=$('ptp'),cl=()=>{pp.hidden=true;pb.setAttribute('aria-expanded','false')};
+pb.onclick=e=>{e.stopPropagation();const o=pp.hidden;pp.hidden=!o;pb.setAttribute('aria-expanded',String(o))};
+document.addEventListener('click',e=>{if(!pp.hidden&&!pp.contains(e.target))cl()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!pp.hidden){cl();pb.focus()}});
+const ST=[["Diagnóstico diferencial","Neuropediatría","Video-EEG con mioclonías, resonancia, panel genético de epilepsias y estudio metabólico; definir si es Doose, Dravet, LGS o mioclónica progresiva.",[["el síndrome está definido","seguir su ruta específica (en Dravet, LGS y TSC el CBD purificado tiene ensayos)"],["no está definido","completar estudios antes de cambiar el CBD"]],"Press 2015: Doose 0 % de respondedores a extractos. El síndrome predice la respuesta más que el producto."],
+["Conciliación de medicamentos","QFB + neuropediatría","Confirmar concentración y lote de Kriadex (1 gota = 0.1 mg), Tamlet-S, mg por tableta de Topamax, RH Oil 5 y Cina 0/1; confirmar peso.",[["no existe certificado (COA) del CBD","no escalar ni sustituir hasta obtenerlo"]],"Ríos-Pohl 2024: la etiqueta puede estar lejos de la realidad."],
+["Mapa de carga actual","Análisis","CYP: clonazepam (3A4) y CBD (2C19, 3A4); levetiracetam y topiramato salen sobre todo por riñón. Sedación: clonazepam + topiramato + CBD se suman. Sin valproato.",[["hay somnolencia, babeo o ataxia","avisar al neurólogo antes de cualquier cambio"]],"La mayor interacción del esquema es el CBD sobre clonazepam y topiramato, no la politerapia en sí."],
+["Línea base","Neuropediatría + laboratorio","ALT, AST, bilirrubina, BH, bicarbonato, creatinina, quizá niveles de topiramato; diario de crisis durante 4 semanas.",[["ALT o AST >3 veces el límite normal","pausar el plan y consultar"]],"Sin línea base no se puede atribuir efecto ni toxicidad."],
+["Elección de producto","Neuropediatría + familia","A: CBD purificado si es Dravet, LGS o TSC. B: espectro completo estandarizado con COA y CBD:THC ≥16:1, solo si neurología lo acepta. C: extracto casero o BHO.",[["es casero o THC-dominante","no iniciar sin análisis completo de cannabinoides y solventes"]],"Tzadok y Hausman-Kedem usaron 20:1; ninguno THC-dominante."],
+["Puente","QFB","Igualar el CBD actual (mg/kg) con el producto estandarizado sin subir; cambiar una sola cosa y mantener comida y vehículo constantes.",[["cambia la comida o el vehículo graso","la exposición puede multiplicarse (comida alta en grasa: Cmax ×5 según ficha)"]],"Cambiar el vehículo equivale a cambiar la dosis."],
+["Titulación y seguimiento","Neuropediatría + QFB","Semanas 0, 2, 4, 8 y 12: diario, sedación, peso y apetito; ALT/AST en semanas 2-4; QFB revisa lote y jeringa.",[["somnolencia","el neurólogo valora reducir clonazepam"],["más mioclonías","volver a la dosis previa"],["ALT/AST >3 veces","detener el escalado"]],"Hausman-Kedem: casi la mitad tuvo efectos adversos; vigilar importa."],
+["Evaluación a 12 semanas","Neuropediatría","Comparar con la línea base y repetir EEG.",[["≥50 % menos mioclonías","mantener"],["25-49 %","decide neurología"],["<25 % o empeora","volver al esquema previo"]],"Meta definida de antemano para evitar sesgo de expectativa."],
+["Simplificación","Neuropediatría","Si la respuesta se sostiene, valorar reducir despacio el fármaco más sedante.",[["hay respuesta sostenida","reducir carga CYP y sedativa de a un fármaco"]],"Precedente: con clobazam se redujo la dosis en 77 % (Geffrey 2015); con clonazepam no hay datos."]];
+$('rc').innerHTML=ST.map((x,i)=>`<div class="st" data-n="${i+1}"><h3>${x[0]} <span class="chip c-lo">${x[1]}</span></h3><p>${x[2]}</p><div class="dec">${x[3].map(d=>`<div><b>Si</b> ${d[0]} <b>→</b> ${d[1]}</div>`).join('')}</div><p class="small">Insight: ${x[4]}</p></div>`).join('');
+$('bpm').onclick=()=>{$('b1').value=0;$('b2').value=71;$('b3').value=0;$('b4').value=0;all()};
+function all(){cur();prop();bho();pt()}
+['w','age','ht','cbdc','tpm','pc','pt','p0','p1','p2','bg','bv','b1','b2','b3','b4','bc','bt'].forEach(i=>$(i).addEventListener('input',all));$('tpm').onchange=all;
+function bho(){const w=W(),g=+$('bg').value||0,v=+$('bv').value||1,c=(+$('bc').value||0)/100,cm=g*1000/v,f=.877;
+const th=(((+$('b1').value||0)*f*c)+(+$('b2').value||0))/100*cm,cb=(((+$('b3').value||0)*f*c)+(+$('b4').value||0))/100*cm,t=+$('bt').value||0;
+const ml=cb>0?t*w/cb:0,thd=ml*th,ratio=th>0?cb/th:Infinity;const n=[];
+if(!(cb>0))n.push(['bad','Sin CBD en el análisis: no hay dosis de CBD calculable.']);
+else if(ratio<16)n.push(['bad',`CBD:THC = ${ratio.toFixed(1)}:1. Es THC-dominante o mixto; la referencia pediátrica usada en la literatura es ≥16:1. No apto sin indicación neurológica expresa.`]);
+else n.push(['ok',`CBD:THC = ${isFinite(ratio)?ratio.toFixed(0):'sin THC'}:1; cumple la referencia ≥16:1, aún sujeta a solventes y lote.`]);
+n.push(['',`THC por día en esa dosis: ${thd.toFixed(1)} mg (${(thd/w).toFixed(2)} mg/kg/día). El CBD actual no aporta THC conocido.`]);
+$('bo').innerHTML=`<div class="scroll"><table><tbody><tr><th>Extracto por mL</th><td>${cm.toFixed(1)} mg</td></tr><tr><th>THC activo por mL</th><td>${th.toFixed(2)} mg</td></tr><tr><th>CBD activo por mL</th><td>${cb.toFixed(2)} mg</td></tr><tr><th>mL por día para la meta de CBD</th><td>${ml.toFixed(2)} mL (${(ml/2).toFixed(2)} mL por toma)</td></tr></tbody></table></div>`+n.map(x=>`<div class="note ${x[0]}">${x[1]}</div>`).join('')+'<p class="small">Factor 0.877 = masa de CBD o THC frente a su ácido. La conversión real depende del proceso y debe medirse, no suponerse.</p>'}
+all();refs();
+</script></body></html>
