@@ -1,0 +1,2064 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="auto">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Mapa Terapéutico: Epilepsia Mioclónica Pediatría</title>
+  <meta name="description" content="Dashboard clínico e interactivo para la gestión y titulación de fármacos antiepilépticos y cannabinoides en epilepsia mioclónica pediátrica.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-sans: 'Atkinson Hyperlegible', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-serif: 'Newsreader', Georgia, serif;
+
+      /* Light theme design tokens */
+      --bg: #f4f7f6;
+      --card: #ffffff;
+      --card-subtle: #f8faf9;
+      --ink: #112229;
+      --mute: #52666d;
+      --line: #d1deda;
+
+      /* Brand / Accent colors */
+      --acc: #0d7a6b;
+      --acc-hover: #08594e;
+      --acc-bg: #e6f4f1;
+      --acc-border: #9ee0d5;
+
+      /* Status feedback colors */
+      --warn: #92580c;
+      --warn-bg: #fef7ea;
+      --warn-border: #f5d396;
+
+      --bad: #ab2a2a;
+      --bad-bg: #fdf2f2;
+      --bad-border: #f8b4b4;
+
+      --ok: #1e6d3b;
+      --ok-bg: #edf7ef;
+      --ok-border: #a3e0b5;
+
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+      --shadow-lg: 0 12px 28px rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.06);
+
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-pill: 9999px;
+
+      --transition-fast: 0.15s ease;
+      --transition-normal: 0.25s ease;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0f1719;
+      --card: #172226;
+      --card-subtle: #1e2c31;
+      --ink: #e5f0ee;
+      --mute: #8e9fa3;
+      --line: #2c3e44;
+
+      --acc: #4ed2be;
+      --acc-hover: #73dccb;
+      --acc-bg: #133530;
+      --acc-border: #215951;
+
+      --warn: #f3be6b;
+      --warn-bg: #322510;
+      --warn-border: #5a421c;
+
+      --bad: #f89090;
+      --bad-bg: #381818;
+      --bad-border: #632a2a;
+
+      --ok: #7ce39e;
+      --ok-bg: #12331f;
+      --ok-border: #215c38;
+
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+      --shadow-lg: 0 12px 28px rgba(0,0,0,0.6);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      [data-theme="auto"] {
+        --bg: #0f1719;
+        --card: #172226;
+        --card-subtle: #1e2c31;
+        --ink: #e5f0ee;
+        --mute: #8e9fa3;
+        --line: #2c3e44;
+
+        --acc: #4ed2be;
+        --acc-hover: #73dccb;
+        --acc-bg: #133530;
+        --acc-border: #215951;
+
+        --warn: #f3be6b;
+        --warn-bg: #322510;
+        --warn-border: #5a421c;
+
+        --bad: #f89090;
+        --bad-bg: #381818;
+        --bad-border: #632a2a;
+
+        --ok: #7ce39e;
+        --ok-bg: #12331f;
+        --ok-border: #215c38;
+
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+        --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+        --shadow-lg: 0 12px 28px rgba(0,0,0,0.6);
+      }
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-serif);
+      color: var(--ink);
+      line-height: 1.25;
+      margin: 0 0 0.5rem 0;
+      font-weight: 700;
+    }
+
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.45rem; }
+    h3 { font-size: 1.15rem; }
+    h4 { font-size: 1rem; }
+
+    p { margin: 0 0 0.85rem 0; }
+    p:last-child { margin-bottom: 0; }
+
+    a {
+      color: var(--acc);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color var(--transition-fast);
+    }
+    a:hover {
+      color: var(--acc-hover);
+    }
+
+    /* Layout wrapper */
+    .app-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.25rem;
+      width: 100%;
+      flex: 1;
+    }
+
+    /* Top Navigation / Header */
+    header.main-header {
+      background: var(--card);
+      border-bottom: 2px solid var(--acc);
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0.75rem 0;
+    }
+
+    .header-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .header-brand h1 {
+      font-size: 1.45rem;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .header-brand .subtitle {
+      font-size: 0.85rem;
+      color: var(--mute);
+      margin-top: 0.15rem;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    /* Segmented Control Buttons */
+    .segmented-control {
+      display: inline-flex;
+      background: var(--card-subtle);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-pill);
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .segmented-control button {
+      background: transparent;
+      border: none;
+      color: var(--mute);
+      padding: 0.35rem 0.85rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .segmented-control button.active {
+      background: var(--acc);
+      color: #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    [data-theme="dark"] .segmented-control button.active {
+      color: #0f1719;
+    }
+
+    /* Patient Drawer Button & Popover */
+    .patient-trigger-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--acc-bg);
+      border: 1px solid var(--acc-border);
+      color: var(--ink);
+      padding: 0.4rem 0.9rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .patient-trigger-btn:hover {
+      border-color: var(--acc);
+    }
+
+    .patient-popover {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      right: 1.25rem;
+      width: min(340px, calc(100vw - 2.5rem));
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 1.1rem;
+      box-shadow: var(--shadow-lg);
+      z-index: 120;
+    }
+
+    .patient-popover[hidden] {
+      display: none;
+    }
+
+    .patient-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--mute);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    input[type="number"], select, input[type="text"] {
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--ink);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 0.4rem 0.6rem;
+      width: 100%;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    input:focus-visible, select:focus-visible, button:focus-visible {
+      outline: 2px solid var(--acc);
+      outline-offset: 1px;
+    }
+
+    .derived-metrics {
+      margin-top: 0.85rem;
+      padding-top: 0.75rem;
+      border-top: 1px dashed var(--line);
+      font-size: 0.82rem;
+      color: var(--mute);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Main Navigation Tabs */
+    nav.tab-nav {
+      background: var(--card);
+      border-bottom: 1px solid var(--line);
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .tab-nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      color: var(--mute);
+      padding: 0.85rem 1rem;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .tab-btn:hover {
+      color: var(--ink);
+      background: var(--card-subtle);
+    }
+
+    .tab-btn.active {
+      color: var(--acc);
+      border-bottom-color: var(--acc);
+      background: transparent;
+    }
+
+    /* Tab Content Sections */
+    .tab-content {
+      display: none;
+      padding-top: 1.25rem;
+      animation: fadeIn var(--transition-normal);
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* UI Cards */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    /* Notes & Alerts */
+    .note-box {
+      border-left: 4px solid var(--warn);
+      background: var(--warn-bg);
+      border-top: 1px solid var(--warn-border);
+      border-right: 1px solid var(--warn-border);
+      border-bottom: 1px solid var(--warn-border);
+      padding: 0.85rem 1rem;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      margin: 0.85rem 0;
+      font-size: 0.92rem;
+    }
+
+    .note-box.bad {
+      border-left-color: var(--bad);
+      background: var(--bad-bg);
+      border-top-color: var(--bad-border);
+      border-right-color: var(--bad-border);
+      border-bottom-color: var(--bad-border);
+    }
+
+    .note-box.ok {
+      border-left-color: var(--ok);
+      background: var(--ok-bg);
+      border-top-color: var(--ok-border);
+      border-right-color: var(--ok-border);
+      border-bottom-color: var(--ok-border);
+    }
+
+    .note-box.info {
+      border-left-color: var(--acc);
+      background: var(--acc-bg);
+      border-top-color: var(--acc-border);
+      border-right-color: var(--acc-border);
+      border-bottom-color: var(--acc-border);
+    }
+
+    /* Data Tables */
+    .table-container {
+      overflow-x: auto;
+      margin: 0.85rem 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 0.65rem 0.85rem;
+      border-bottom: 1px solid var(--line);
+      vertical-align: middle;
+    }
+
+    th {
+      background: var(--card-subtle);
+      font-weight: 700;
+      color: var(--mute);
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Chips & Badges */
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.18rem 0.65rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.78rem;
+      font-weight: 700;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .chip.c-ok { background: var(--ok-bg); color: var(--ok); border: 1px solid var(--ok-border); }
+    .chip.c-lo { background: var(--acc-bg); color: var(--acc); border: 1px solid var(--acc-border); }
+    .chip.c-hi { background: var(--bad-bg); color: var(--bad); border: 1px solid var(--bad-border); }
+    .chip.c-q  { background: var(--warn-bg); color: var(--warn); border: 1px solid var(--warn-border); }
+
+    /* Visual Range Bar Component */
+    .range-bar-container {
+      position: relative;
+      height: 12px;
+      background: var(--line);
+      border-radius: 6px;
+      min-width: 130px;
+      margin-right: 0.5rem;
+    }
+
+    .range-bar-target {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      background: var(--acc-bg);
+      border: 1px solid var(--acc);
+      border-radius: 6px;
+    }
+
+    .range-bar-marker {
+      position: absolute;
+      top: -3px;
+      width: 5px;
+      height: 18px;
+      background: var(--ink);
+      border-radius: 3px;
+      transform: translateX(-50%);
+      box-shadow: 0 0 2px rgba(0,0,0,0.5);
+    }
+
+    /* Interactive SVG Charts Container */
+    .chart-container {
+      background: var(--card-subtle);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .chart-header {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--mute);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    svg.interactive-chart {
+      width: 100%;
+      height: auto;
+      display: block;
+      overflow: visible;
+    }
+
+    /* Layout Grid Helpers */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .grid-inputs {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Perspective toggle logic (Familia vs Neurologia) */
+    .perspective-neurology { display: none; }
+    .perspective-family { display: block; }
+
+    body.neu-mode .perspective-neurology { display: block; }
+    body.neu-mode .perspective-family { display: none; }
+
+    /* Interactive Reference Popovers & Cards */
+    .ref-card {
+      border-left: 4px solid var(--acc);
+      background: var(--card);
+      border-top: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.85rem;
+      position: relative;
+      cursor: pointer;
+      transition: background-color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .ref-card:hover, .ref-card:focus-within {
+      background: var(--card-subtle);
+    }
+
+    .ref-popover {
+      display: none;
+      background: var(--card);
+      border: 2px solid var(--acc);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      margin-top: 0.75rem;
+      box-shadow: var(--shadow-md);
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .ref-card.expanded .ref-popover {
+      display: block;
+    }
+
+    /* Workflow Flowchart (Ruta Crítica) */
+    .workflow-flow {
+      border-left: 3px solid var(--acc);
+      margin-left: 1.25rem;
+      padding-left: 1.5rem;
+    }
+
+    .workflow-step {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .workflow-step::before {
+      content: attr(data-step);
+      position: absolute;
+      left: -2.4rem;
+      top: 0;
+      width: 1.8rem;
+      height: 1.8rem;
+      border-radius: 50%;
+      background: var(--acc);
+      color: #ffffff;
+      display: grid;
+      place-items: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    [data-theme="dark"] .workflow-step::before {
+      color: #0f1719;
+    }
+
+    .workflow-decision {
+      background: var(--acc-bg);
+      border-radius: var(--radius-sm);
+      padding: 0.6rem 0.85rem;
+      margin: 0.5rem 0;
+      font-size: 0.88rem;
+      border-left: 3px solid var(--acc);
+    }
+
+    .text-mute { color: var(--mute); }
+    .text-small { font-size: 0.85rem; }
+
+    /* Footer */
+    footer.main-footer {
+      background: var(--card);
+      border-top: 1px solid var(--line);
+      padding: 1.25rem 0;
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--mute);
+    }
+
+    /* Print styles */
+    @media print {
+      header.main-header, nav.tab-nav, .patient-popover, button {
+        display: none !important;
+      }
+      .tab-content {
+        display: block !important;
+        page-break-after: always;
+      }
+      body {
+        background: #fff;
+        color: #000;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="header-container">
+      <div class="header-brand">
+        <h1>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+          </svg>
+          Mapa Terapéutico: Epilepsia Mioclónica
+        </h1>
+        <div class="subtitle" id="headerSubtitle">Cálculo de Dosis, Titulación de Cannabinoides y Auditoría de Evidencia</div>
+      </div>
+
+      <div class="header-controls">
+        <!-- View Perspective Toggle -->
+        <div class="segmented-control" role="group" aria-label="Perspectiva de usuario">
+          <button id="btnPerspFamily" class="active" title="Vista simplificada para cuidadores y familia">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Familia
+          </button>
+          <button id="btnPerspNeurology" title="Vista médica detallada con farmacocinética e interacciones">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            Neurología
+          </button>
+        </div>
+
+        <!-- Theme Switcher -->
+        <div class="segmented-control" role="group" aria-label="Tema visual">
+          <button id="btnThemeAuto" class="active" title="Tema según el sistema">Auto</button>
+          <button id="btnThemeLight" title="Modo claro">Claro</button>
+          <button id="btnThemeDark" title="Modo oscuro">Oscuro</button>
+        </div>
+
+        <!-- Patient Drawer Button -->
+        <div style="position: relative;">
+          <button id="patientDrawerBtn" class="patient-trigger-btn" aria-expanded="false" aria-controls="patientPopover">
+            <span id="patientSummaryText">26 kg · 6 a · 111 cm</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
+          </button>
+
+          <!-- Patient Drawer Popover -->
+          <div id="patientPopover" class="patient-popover" hidden>
+            <h4 style="margin-bottom:0.75rem; border-bottom:1px solid var(--line); padding-bottom:0.4rem;">Parámetros del Paciente</h4>
+            <div class="patient-grid">
+              <div class="form-group">
+                <label for="inputWeight">Peso (kg)</label>
+                <input id="inputWeight" type="number" value="26" step="0.5" min="5" max="100">
+              </div>
+              <div class="form-group">
+                <label for="inputHeight">Talla (cm)</label>
+                <input id="inputHeight" type="number" value="111" min="50" max="200">
+              </div>
+              <div class="form-group">
+                <label for="inputAge">Edad (años)</label>
+                <input id="inputAge" type="number" value="6" min="1" max="18">
+              </div>
+              <div class="form-group">
+                <label>Sexo</label>
+                <div class="segmented-control" style="width:100%;">
+                  <button id="btnSexF" class="sex-btn active" data-sex="F" style="flex:1; justify-content:center;">F</button>
+                  <button id="btnSexM" class="sex-btn" data-sex="M" style="flex:1; justify-content:center;">M</button>
+                </div>
+              </div>
+            </div>
+            <div class="derived-metrics" id="derivedMetricsDisplay">
+              <!-- JS Populated: BMI & BSA -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Tabs -->
+  <nav class="tab-nav" aria-label="Navegación principal del mapa terapéutico">
+    <div class="tab-nav-container" id="tabNavContainer">
+      <button class="tab-btn active" data-tab="0">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        1. Esquema Actual
+      </button>
+      <button class="tab-btn" data-tab="1">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        2. Propuesta CBD
+      </button>
+      <button class="tab-btn" data-tab="2">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        3. Interacciones y Labs
+      </button>
+      <button class="tab-btn" data-tab="3">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        4. Semiología
+      </button>
+      <button class="tab-btn" data-tab="4">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        5. Evidencia
+      </button>
+      <button class="tab-btn" data-tab="5">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v7.31M14 9.3V2M8.5 2h7M14 9.3a6.5 6.5 0 1 1-4 0"/></svg>
+        6. Extracto BHO
+      </button>
+      <button class="tab-btn" data-tab="6">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        7. Ruta Crítica
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="app-wrap">
+
+    <!-- TAB 0: Esquema Actual -->
+    <section id="tabSection0" class="tab-content active">
+      <div class="note-box bad">
+        <strong>¡Advertencia Médica Primordial!</strong> Nunca suspendan ni reduzcan clonazepam, CBD ni ningún antiepiléptico de golpe: puede provocar crisis de rebote graves o estado epiléptico. Cualquier modificación debe ser expresamente supervisada por neuropediatría.
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>Esquema Actual Ponderado por Kilogramo</h2>
+          <span class="text-mute text-small">Calculado dinámicamente con el peso del paciente</span>
+        </div>
+
+        <div class="grid-inputs">
+          <div class="form-group">
+            <label for="inputCbdConcentration">CBD Frasco (mg/mL)</label>
+            <input id="inputCbdConcentration" type="number" value="21" step="1" min="1">
+          </div>
+          <div class="form-group">
+            <label for="selectTopamaxStrength">Topamax (mg / tableta)</label>
+            <select id="selectTopamaxStrength">
+              <option value="25">25 mg</option>
+              <option value="50" selected>50 mg</option>
+              <option value="100">100 mg</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="note-box info">
+          El CBD se calcula con <strong>21 mg/mL</strong> como hipótesis (asumiendo que el frasco de 236 mL tiene 5,000 mg totales). <strong>Se requiere confirmación urgente en la etiqueta o Certificado de Análisis (COA)</strong>, ya que cualquier variación altera proporcionalmente todas las dosis diarias.
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Medicamento</th>
+                <th>Toma Diaria</th>
+                <th>mg / día</th>
+                <th>mg / kg / día</th>
+                <th>Rango de Referencia</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody id="tableCurrentScheme">
+              <!-- JS Populated -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Interactive SVG Visual Comparison Chart -->
+        <div class="chart-container">
+          <div class="chart-header">
+            <span>Visualización de Dosis Actual vs. Rangos Terapéuticos de Referencia</span>
+            <span class="text-small text-mute">% del Rango Objetivo</span>
+          </div>
+          <div id="chartCurrentDoses">
+            <!-- JS Populated SVG -->
+          </div>
+        </div>
+
+        <p class="text-small text-mute" style="margin-top:0.75rem;">
+          <em>Referencias farmacológicas:</em> Levetiracetam 20–60 mg/kg/día y Clonazepam mantenimiento 0.1–0.2 mg/kg/día (fichas técnicas); Topiramato 5–9 mg/kg/día (mantenimiento habitual); CBD purificado aprobado 10–20 mg/kg/día (Dravet/LGS), hasta 25 mg/kg/día en TSC. Estar fuera de rango no constituye necesariamente un error: la dosis óptima es la que logra control de crisis sin toxicidad.
+        </p>
+      </div>
+
+      <!-- Quick Context Reading Card -->
+      <div class="card">
+        <h3>Lectura Rápida del Esquema</h3>
+
+        <div class="perspective-family">
+          <p>El paciente recibe <strong>cuatro medicamentos reconocidos</strong> más un aceite de cáñamo cuya concentración exacta no está confirmada. Lo primero y más crítico es verificar la etiqueta o certificado del frasco para saber cuánto cannabidiol está ingiriendo realmente.</p>
+        </div>
+
+        <div class="perspective-neurology">
+          <p>Politerapia compleja de 4 mecanismos de acción concurrentes: <strong>GABA-A</strong> (clonazepam), <strong>SV2A</strong> (levetiracetam), <strong>canales de Na⁺/GABA/AMPA/anhidrasa carbónica</strong> (topiramato) y <strong>CBD no estandarizado</strong> (dianas GPR55, TRPV1, ENT1). El principal punto ciego es la falta de COA para cuantificar la exposición a CBD y THC residual. Se recomienda filtrar síndrome epiléptico (Doose, Dravet, mioclónica progresiva) mediante panel genético.</p>
+        </div>
+
+        <p class="text-small text-mute" style="margin-top:0.5rem;">
+          <em>Nota sobre Cina 0/1:</em> Corresponde a un producto homeopático. No existe evidencia científica de eficacia en epilepsia y jamás debe sustituir a ningún fármaco antiepiléptico.
+        </p>
+      </div>
+    </section>
+
+    <!-- TAB 1: Propuesta CBD -->
+    <section id="tabSection1" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h2>Propuesta de Titulación: CBD de Espectro Completo Estandarizado</h2>
+          <span class="chip c-q">Borrador de Trabajo para Discusión Médica</span>
+        </div>
+
+        <div class="note-box info">
+          <strong>Propuesta para discutir en consulta neuropediátrica</strong>, no una prescripción. La evidencia sobre extractos de espectro completo es observacional (Nivel II-III) y no demuestra superioridad clínica sobre el CBD purificado aislado. Además, el CBD interactúa significativamente con los fármacos de base.
+        </div>
+
+        <div class="grid-inputs">
+          <div class="form-group">
+            <label for="inputPropCbdConc">CBD (mg/mL del COA)</label>
+            <input id="inputPropCbdConc" type="number" value="50" step="1" min="1">
+          </div>
+          <div class="form-group">
+            <label for="inputPropThcConc">THC (mg/mL del COA)</label>
+            <input id="inputPropThcConc" type="number" value="0.5" step="0.1" min="0">
+          </div>
+          <div class="form-group">
+            <label for="inputPropStartDose">Dosis Inicial (mg/kg/día)</label>
+            <input id="inputPropStartDose" type="number" value="2" step="0.5" min="0.5">
+          </div>
+          <div class="form-group">
+            <label for="inputPropStepDose">Escalón Semanal (mg/kg/día)</label>
+            <input id="inputPropStepDose" type="number" value="2" step="0.5" min="0.5">
+          </div>
+          <div class="form-group">
+            <label for="inputPropTargetDose">Meta (mg/kg/día)</label>
+            <input id="inputPropTargetDose" type="number" value="6" step="0.5" min="1">
+          </div>
+        </div>
+
+        <div id="propWarningsContainer">
+          <!-- Dynamic safety warnings -->
+        </div>
+
+        <!-- Interactive Titration SVG Chart -->
+        <div class="chart-container">
+          <div class="chart-header">
+            <span>Curva de Escalado Semanal de CBD y Exposición Acompañante a THC (mg/día)</span>
+            <span class="text-small text-mute">Simulador de Titulación</span>
+          </div>
+          <div id="chartPropTitration">
+            <!-- JS Populated SVG -->
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Semana</th>
+                <th>mg / kg / día</th>
+                <th>mg CBD / día</th>
+                <th>mL por toma (×2/día)</th>
+                <th>THC mg / día</th>
+                <th>Control y Monitoreo Recomendado</th>
+              </tr>
+            </thead>
+            <tbody id="tablePropTitration">
+              <!-- JS Populated -->
+            </tbody>
+          </table>
+        </div>
+
+        <p class="text-small text-mute" style="margin-top:0.75rem;">
+          <em>Nota clínica sobre la meta:</em> La meta de 6 mg/kg/día corresponde al promedio observado en el metaanálisis observacional de Pamplona (2018), no a una dosis ensayada en ensayos clínicos de Fase III. El CBD purificado aprobado inicia en 5 mg/kg/día y titula hasta 10–20 mg/kg/día (hasta 25 mg/kg/día en TSC).
+        </p>
+
+        <h3 style="margin-top:1.5rem;">¿Qué cambiaría frente a la situación actual?</h3>
+        <p>Sustituir el aceite actual sin laboratorio por un extracto estandarizado con Certificado de Análisis (COA), THC mínimo y composición constante entre lotes, empatando primero la dosis actual de CBD. Posteriormente, bajo estricta vigilancia neurológica, titular de a un cambio a la vez. Durante la titulación, el clonazepam requiere máxima vigilancia por posible potenciación de sedación.</p>
+
+        <details style="margin-top:1rem; border:1px solid var(--line); border-radius:var(--radius-sm); padding:0.75rem;">
+          <summary style="font-weight:700; cursor:pointer; color:var(--acc);">
+            Revisión de la Calculadora del Prototipo Original HTML
+          </summary>
+          <div style="margin-top:0.75rem;">
+            <div class="note-box ok">
+              Aritmética básica correcta: <code>(kg × mg/kg/día) ÷ concentración ÷ 2 tomas</code>. Ejemplo: paciente de 20 kg a 1 mg/kg con frasco de 100 mg/mL = 0.1 mL por toma.
+            </div>
+            <div class="note-box bad">
+              <strong>Deficiencias corregidas en esta versión v1:</strong>
+              <ol style="margin:0.5rem 0 0 1.25rem; padding:0;">
+                <li>Omisión total del cálculo de acumulación diaria de THC.</li>
+                <li>Falta de respaldo científico para la meta declarada de "máx. 12 mg/kg" en espectro completo.</li>
+                <li>Inconsistencia entre las fases de la tabla y la gráfica semanal del prototipo original.</li>
+                <li>Falta de consideración para las interacciones con clonazepam, topiramato y levetiracetam (solo consideraba clobazam/valproato).</li>
+                <li>Presentación de datos observacionales ("71% vs 46%") como prescriptivos y causales.</li>
+              </ol>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- TAB 2: Interacciones y Labs -->
+    <section id="tabSection2" class="tab-content">
+      <div class="card">
+        <h2>Matriz de Interacciones Farmacológicas</h2>
+        <p class="text-mute text-small">Evaluación clínica de interacciones combinadas en el esquema actual</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Par de Fármacos</th>
+                <th>Mecanismo Farmacocinético / Dinámico</th>
+                <th>Efectos a Vigilar en la Práctica</th>
+                <th>Nivel de Evidencia</th>
+              </tr>
+            </thead>
+            <tbody id="tableInteractions">
+              <!-- JS Populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Perfil Farmacocinético Individual (PK/PD)</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Fármaco</th>
+                <th>Vía de Eliminación Principal</th>
+                <th>Vida Media Aprox.</th>
+                <th>Consideración de Seguridad Especial</th>
+              </tr>
+            </thead>
+            <tbody id="tablePkPd">
+              <!-- JS Populated -->
+            </tbody>
+          </table>
+        </div>
+        <p class="text-small text-mute perspective-neurology">
+          Nota farmacocinética: Las vidas medias corresponden a valores de referencia; en niños pequeños la depuración renal y hepática suele ser más rápida para levetiracetam y topiramato.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>Calendario de Laboratorios de Control</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Momento / Frecuencia</th>
+                <th>Estudios A Solicitar</th>
+                <th>Justificación Clínica</th>
+              </tr>
+            </thead>
+            <tbody id="tableLabs">
+              <!-- JS Populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: Semiología -->
+    <section id="tabSection3" class="tab-content">
+      <div class="card">
+        <h2>Monitoreo Clínico de Semiología y Síntomas de Alarma</h2>
+        <p>Seleccione los signos o síntomas que observe actualmente en el paciente para evaluar el nivel de alerta médica:</p>
+
+        <div id="symptomsChecklistContainer" style="display:flex; flex-direction:column; gap:0.5rem; margin:1rem 0;">
+          <!-- JS Populated Checkboxes -->
+        </div>
+
+        <div id="symptomsAlertOutput" class="note-box ok">
+          Sin signos marcados actualmente.
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Efectos Terapéuticos Buscados</h3>
+        <p>Reducción en la frecuencia o intensidad de mioclonías y crisis convulsivas, disminución de caídas, mayor nivel de alerta diurna y mejoría en la calidad del sueño.</p>
+        <div class="note-box info">
+          <strong>Recomendación para la familia:</strong> Registrar fehacientemente cada evento en un diario de crisis anotando fecha, hora exactas y duración. Los cambios sustanciales se evalúan en un horizonte de semanas, no de días.
+        </div>
+        <p class="text-small text-mute perspective-neurology">
+          Evaluación objetiva mediante diario estructurado de crisis y electroencefalograma (EEG) de control. El uso de EEG cuantitativo (qEEG) como predictor de respuesta se mantiene en investigación experimental.
+        </p>
+      </div>
+    </section>
+
+    <!-- TAB 4: Evidencia -->
+    <section id="tabSection4" class="tab-content">
+      <div class="card">
+        <h2>Auditoría de Evidencia Científica por Niveles</h2>
+        <p class="text-small text-mute">Filtre por nivel metodológico o por tema temático específico:</p>
+
+        <div style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem;" id="filterEvidenceLevels">
+          <!-- JS Populated Level Buttons -->
+        </div>
+
+        <div style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem;" id="filterEvidenceTopics">
+          <!-- JS Populated Topic Buttons -->
+        </div>
+
+        <!-- Comparative Table (when comparing CBD vs Full Spectrum) -->
+        <div id="evidenceComparisonContainer" style="display:none; margin-bottom:1.25rem;">
+          <h3>Comparativa Rigurosa: CBD Purificado vs. Espectro Completo</h3>
+          <div id="tableEvidenceComparison">
+            <!-- JS Populated -->
+          </div>
+        </div>
+
+        <!-- Reference Cards Stream -->
+        <div id="evidenceCardsStream">
+          <!-- JS Populated Cards -->
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Auditoría Metodológica de Literatura Previa</h3>
+        <div class="note-box bad">
+          <strong>Inconsistencias y errores citacionales detectados en borradores previos:</strong>
+          <ul style="margin:0.4rem 0 0 1.25rem; padding:0;">
+            <li>El ensayo de Devinsky (NEJM) sobre LGS fue publicado en 2018 (no 2019) y corresponde a Nivel I.</li>
+            <li>Frases como "efecto séquito demostrado" o "desmantela la patología" constituyen especulaciones no probadas en humanos.</li>
+            <li>La afirmación de que "el espectro completo evita interacciones CYP450" es completamente falsa: el CBD inhibe CYP2C19 en cualquier presentación.</li>
+            <li>Estudios observacionales citados en síndromes de Doose, West, GLUT1 o SYNGAP1 no poseen el nivel metodológico atribuido.</li>
+          </ul>
+        </div>
+        <div class="note-box bad">
+          <strong>Corrección Citacional:</strong> El metaanálisis de Pamplona (2018) fue publicado en <em>Frontiers in Neurology</em> (no Frontiers in Pharmacology). Al analizar la variable de respuesta estándar (≥50% de reducción de crisis), los extractos y el CBD purificado mostraron eficacia equivalente (37% vs 42%, p=0.52). El dato de "71% vs 46%" corresponde a percepción cualitativa global reportada por padres.
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: Extracto BHO -->
+    <section id="tabSection5" class="tab-content">
+      <div class="note-box bad">
+        <strong>Límite Ético y de Seguridad Inviolable:</strong> Este dashboard no incluye guías de extracción con solventes volátiles (butano, etanol) ni purgado casero por el peligro de explosiones e incendios, e ingesta diaria de solventes tóxicos en niños. Solo se proporciona la calculadora analítica de laboratorio y dosis.
+      </div>
+
+      <div class="card">
+        <h2>Calculadora Analítica para Extracto / Concentrado (p.ej. «Lemon KSH»)</h2>
+        <p>Ingrese los valores del Certificado de Análisis (COA) de laboratorio para calcular concentraciones reales y dosis:</p>
+
+        <div class="grid-inputs">
+          <div class="form-group">
+            <label for="inputBhoWeight">Muestra Extracto (g)</label>
+            <input id="inputBhoWeight" type="number" value="1" step="0.1" min="0.1">
+          </div>
+          <div class="form-group">
+            <label for="inputBhoVolume">Volumen Final (mL)</label>
+            <input id="inputBhoVolume" type="number" value="30" min="1">
+          </div>
+          <div class="form-group">
+            <label for="inputBhoThca">THCA %</label>
+            <input id="inputBhoThca" type="number" value="55" step="1" min="0">
+          </div>
+          <div class="form-group">
+            <label for="inputBhoThc">THC neutro %</label>
+            <input id="inputBhoThc" type="number" value="3" step="0.5" min="0">
+          </div>
+          <div class="form-group">
+            <label for="inputBhoCbda">CBDA %</label>
+            <input id="inputBhoCbda" type="number" value="3" step="0.5" min="0">
+          </div>
+          <div class="form-group">
+            <label for="inputBhoCbd">CBD neutro %</label>
+            <input id="inputBhoCbd" type="number" value="0.5" step="0.1" min="0">
+          </div>
+          <div class="form-group">
+            <label for="inputBhoConv">Conversión Ácida (%)</label>
+            <input id="inputBhoConv" type="number" value="100" step="5" min="0" max="100">
+          </div>
+          <div class="form-group">
+            <label for="inputBhoTargetCbd">CBD Meta (mg/kg/día)</label>
+            <input id="inputBhoTargetCbd" type="number" value="7" step="0.5" min="0.5">
+          </div>
+        </div>
+
+        <div id="bhoResultsContainer">
+          <!-- JS Calculated Output -->
+        </div>
+
+        <div style="margin-top:1rem;">
+          <button id="btnLoadMarketAverage" style="background:var(--card-subtle); border:1px solid var(--line); padding:0.5rem 0.85rem; border-radius:var(--radius-sm); font-size:0.85rem; font-weight:700; cursor:pointer;">
+            Simular Promedio Concentrado de Mercado (≈71% THC, 0% CBD)
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Comparación Médica: CBD Farmacéutico vs. Extracto Casero con THC</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Criterio</th>
+                <th>CBD Grado Farmacéutico Aprobado</th>
+                <th>Extracto Casero / Artesanal con THC</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Evidencia Clínica</strong></td>
+                <td>Ensayos clínicos aleatorizados doble ciego (Dravet, LGS, TSC).</td>
+                <td>Evidencia observacional retrospectiva; sin ensayos en caseros.</td>
+              </tr>
+              <tr>
+                <td><strong>Dosificación Exacta</strong></td>
+                <td>Sí, dosis miligramo a miligramo garantizada.</td>
+                <td>Desconocida sin COA; variación de 0 a 388 mg/mL THC (Ríos-Pohl 2024).</td>
+              </tr>
+              <tr>
+                <td><strong>Perfil de Interacciones</strong></td>
+                <td>Inhibición CYP2C19; eleva topiramato y metabolitos de benzodiazepinas.</td>
+                <td>Interacciones de CBD sumadas a THC (CYP2C9/3A4) y sedación aditiva.</td>
+              </tr>
+              <tr>
+                <td><strong>Seguridad y Riesgos</strong></td>
+                <td>Elevación de transaminasas (monitoreable), diarrea, somnolencia.</td>
+                <td>Riesgo de solventes residuales, exposición a THC en neurodesarrollo.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 6: Ruta Crítica -->
+    <section id="tabSection6" class="tab-content">
+      <div class="card">
+        <h2>Ruta Crítica del Protocolo Terapéutico</h2>
+        <p class="text-small text-mute">Secuencia algorítmica de decisiones desde el diagnóstico hasta el seguimiento:</p>
+
+        <div class="workflow-flow" id="workflowStepsContainer">
+          <!-- JS Populated Flowchart -->
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Propuesta de Valor del Protocolo Riguroso</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Deficiencia Frecuente en Manejo Empírico</th>
+                <th>Solución Implementada en Este Protocolo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Uso de aceites sin análisis de laboratorio.</td>
+                <td>Certificado (COA) por lote obligatorio con proporción CBD:THC ≥16:1.</td>
+              </tr>
+              <tr>
+                <td>Evaluación subjetiva de respuesta sin criterios fijados.</td>
+                <td>Diario estructurado de 4 semanas y meta prefijada (≥50% menos crisis).</td>
+              </tr>
+              <tr>
+                <td>Cambios simultáneos de múltiples variables.</td>
+                <td>Un solo cambio por vez con dieta y vehículo de administración constantes.</td>
+              </tr>
+              <tr>
+                <td>Falta de controles analíticos de seguridad.</td>
+                <td>Monitorización programada de ALT/AST, biometría y bicarbonato.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="app-wrap" style="padding-top:0; padding-bottom:0;">
+      <p>Mapa Terapéutico e Interactivo para Epilepsia Mioclónica Pediatría · Versión 1.0 (Refactorizada)</p>
+      <p class="text-small"><em>Descargo de responsabilidad:</em> Esta herramienta digital tiene fines exclusivamente educativos e informativos. No constituye prescripción médica ni sustituye la valoración y toma de decisiones de neuropediatría.</p>
+    </div>
+  </footer>
+
+  <!-- Embedded JavaScript Logic -->
+  <script>
+    // State Management
+    const state = {
+      weight: 26,
+      height: 111,
+      age: 6,
+      sex: 'F',
+      cbdConcentration: 21,
+      topamaxStrength: 50,
+      activeTab: 0,
+      theme: 'auto',
+      perspective: 'family', // 'family' or 'neurology'
+      selectedEvidenceLevel: 'T',
+      selectedEvidenceTopic: 'a',
+
+      // Proposed CBD inputs
+      propCbdConc: 50,
+      propThcConc: 0.5,
+      propStartDose: 2,
+      propStepDose: 2,
+      propTargetDose: 6,
+
+      // BHO Inputs
+      bhoWeight: 1,
+      bhoVolume: 30,
+      bhoThca: 55,
+      bhoThc: 3,
+      bhoCbda: 3,
+      bhoCbd: 0.5,
+      bhoConv: 100,
+      bhoTargetCbd: 7,
+
+      // Semiology check state
+      symptomsChecked: new Set()
+    };
+
+    // DOM Selectors Helper
+    const $ = id => document.getElementById(id);
+
+    // Initializer
+    document.addEventListener('DOMContentLoaded', () => {
+      loadStateFromStorage();
+      initUI();
+      initEventListeners();
+      renderAll();
+    });
+
+    // Local Storage Persistence
+    function loadStateFromStorage() {
+      try {
+        const saved = localStorage.getItem('epilepsy_map_state');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          Object.assign(state, parsed);
+        }
+      } catch (e) {
+        console.warn('LocalStorage error:', e);
+      }
+    }
+
+    function saveStateToStorage() {
+      try {
+        localStorage.setItem('epilepsy_map_state', JSON.stringify({
+          weight: state.weight,
+          height: state.height,
+          age: state.age,
+          sex: state.sex,
+          cbdConcentration: state.cbdConcentration,
+          topamaxStrength: state.topamaxStrength,
+          theme: state.theme,
+          perspective: state.perspective
+        }));
+      } catch (e) {
+        console.warn('LocalStorage save error:', e);
+      }
+    }
+
+    // UI Initializers
+    function initUI() {
+      // Sync Input Elements with State
+      $('inputWeight').value = state.weight;
+      $('inputHeight').value = state.height;
+      $('inputAge').value = state.age;
+      $('inputCbdConcentration').value = state.cbdConcentration;
+      $('selectTopamaxStrength').value = state.topamaxStrength;
+
+      $('inputPropCbdConc').value = state.propCbdConc;
+      $('inputPropThcConc').value = state.propThcConc;
+      $('inputPropStartDose').value = state.propStartDose;
+      $('inputPropStepDose').value = state.propStepDose;
+      $('inputPropTargetDose').value = state.propTargetDose;
+
+      $('inputBhoWeight').value = state.bhoWeight;
+      $('inputBhoVolume').value = state.bhoVolume;
+      $('inputBhoThca').value = state.bhoThca;
+      $('inputBhoThc').value = state.bhoThc;
+      $('inputBhoCbda').value = state.bhoCbda;
+      $('inputBhoCbd').value = state.bhoCbd;
+      $('inputBhoConv').value = state.bhoConv;
+      $('inputBhoTargetCbd').value = state.bhoTargetCbd;
+
+      setTheme(state.theme);
+      setPerspective(state.perspective);
+      setSex(state.sex);
+      setActiveTab(state.activeTab);
+    }
+
+    // Event Listeners
+    function initEventListeners() {
+      // Navigation Tabs
+      document.querySelectorAll('#tabNavContainer .tab-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const tabIndex = parseInt(btn.dataset.tab, 10);
+          setActiveTab(tabIndex);
+        });
+      });
+
+      // Perspective Toggle
+      $('btnPerspFamily').addEventListener('click', () => setPerspective('family'));
+      $('btnPerspNeurology').addEventListener('click', () => setPerspective('neurology'));
+
+      // Theme Buttons
+      $('btnThemeAuto').addEventListener('click', () => setTheme('auto'));
+      $('btnThemeLight').addEventListener('click', () => setTheme('light'));
+      $('btnThemeDark').addEventListener('click', () => setTheme('dark'));
+
+      // Patient Drawer Toggle & Outside Click
+      const drawerBtn = $('patientDrawerBtn');
+      const drawerPopover = $('patientPopover');
+
+      drawerBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isHidden = drawerPopover.hidden;
+        drawerPopover.hidden = !isHidden;
+        drawerBtn.setAttribute('aria-expanded', String(isHidden));
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!drawerPopover.hidden && !drawerPopover.contains(e.target) && e.target !== drawerBtn) {
+          drawerPopover.hidden = true;
+          drawerBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Sex Selection Buttons
+      document.querySelectorAll('.sex-btn').forEach(btn => {
+        btn.addEventListener('click', () => setSex(btn.dataset.sex));
+      });
+
+      // Inputs Change Listeners
+      const bindNumInput = (id, key, callback) => {
+        const el = $(id);
+        if (el) {
+          el.addEventListener('input', () => {
+            state[key] = parseFloat(el.value) || 0;
+            saveStateToStorage();
+            if (callback) callback();
+            else renderAll();
+          });
+        }
+      };
+
+      bindNumInput('inputWeight', 'weight');
+      bindNumInput('inputHeight', 'height');
+      bindNumInput('inputAge', 'age');
+      bindNumInput('inputCbdConcentration', 'cbdConcentration');
+
+      $('selectTopamaxStrength').addEventListener('change', (e) => {
+        state.topamaxStrength = parseFloat(e.target.value) || 50;
+        saveStateToStorage();
+        renderAll();
+      });
+
+      bindNumInput('inputPropCbdConc', 'propCbdConc');
+      bindNumInput('inputPropThcConc', 'propThcConc');
+      bindNumInput('inputPropStartDose', 'propStartDose');
+      bindNumInput('inputPropStepDose', 'propStepDose');
+      bindNumInput('inputPropTargetDose', 'propTargetDose');
+
+      bindNumInput('inputBhoWeight', 'bhoWeight');
+      bindNumInput('inputBhoVolume', 'bhoVolume');
+      bindNumInput('inputBhoThca', 'bhoThca');
+      bindNumInput('inputBhoThc', 'bhoThc');
+      bindNumInput('inputBhoCbda', 'bhoCbda');
+      bindNumInput('inputBhoCbd', 'bhoCbd');
+      bindNumInput('inputBhoConv', 'bhoConv');
+      bindNumInput('inputBhoTargetCbd', 'bhoTargetCbd');
+
+      $('btnLoadMarketAverage').addEventListener('click', () => {
+        state.bhoThca = 0;
+        state.bhoThc = 71;
+        state.bhoCbda = 0;
+        state.bhoCbd = 0;
+        $('inputBhoThca').value = 0;
+        $('inputBhoThc').value = 71;
+        $('inputBhoCbda').value = 0;
+        $('inputBhoCbd').value = 0;
+        renderBhoCalculator();
+      });
+    }
+
+    // UI State Helpers
+    function setActiveTab(index) {
+      state.activeTab = index;
+      document.querySelectorAll('#tabNavContainer .tab-btn').forEach((btn, idx) => {
+        btn.classList.toggle('active', idx === index);
+      });
+      document.querySelectorAll('.tab-content').forEach((sec, idx) => {
+        sec.classList.toggle('active', idx === index);
+      });
+    }
+
+    function setTheme(theme) {
+      state.theme = theme;
+      document.documentElement.setAttribute('data-theme', theme);
+      $('btnThemeAuto').classList.toggle('active', theme === 'auto');
+      $('btnThemeLight').classList.toggle('active', theme === 'light');
+      $('btnThemeDark').classList.toggle('active', theme === 'dark');
+      saveStateToStorage();
+    }
+
+    function setPerspective(persp) {
+      state.perspective = persp;
+      document.body.classList.toggle('neu-mode', persp === 'neurology');
+      $('btnPerspFamily').classList.toggle('active', persp === 'family');
+      $('btnPerspNeurology').classList.toggle('active', persp === 'neurology');
+      saveStateToStorage();
+    }
+
+    function setSex(sex) {
+      state.sex = sex;
+      document.querySelectorAll('.sex-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.sex === sex);
+      });
+      saveStateToStorage();
+      renderPatientSummary();
+    }
+
+    // Calculations & Rendering
+    function renderAll() {
+      renderPatientSummary();
+      renderCurrentScheme();
+      renderPropTitration();
+      renderInteractionsAndLabs();
+      renderSemiology();
+      renderEvidence();
+      renderBhoCalculator();
+      renderWorkflow();
+    }
+
+    function renderPatientSummary() {
+      const w = state.weight;
+      const h = state.height;
+      const a = state.age;
+      const s = state.sex;
+
+      $('patientSummaryText').textContent = `${w} kg · ${a} a · ${h} cm`;
+
+      const sexLabel = s === 'F' ? 'Niña' : 'Niño';
+      $('headerSubtitle').textContent = `${sexLabel} de ${a} años · Datos ponderados para consulta con neuropediatría`;
+
+      // Derived Body Surface Area (Mosteller) & BMI
+      let bsaText = 'N/A';
+      let bmiText = 'N/A';
+      if (h > 0 && w > 0) {
+        const bsa = Math.sqrt((h * w) / 3600);
+        bsaText = `${bsa.toFixed(2)} m²`;
+        const bmi = w / Math.pow(h / 100, 2);
+        bmiText = `${bmi.toFixed(1)} kg/m²`;
+      }
+
+      $('derivedMetricsDisplay').innerHTML = `
+        <div>IMC Estimado: <strong>${bmiText}</strong></div>
+        <div>Superficie Corporal (Mosteller): <strong>${bsaText}</strong></div>
+      `;
+    }
+
+    // Tab 0: Current Scheme
+    function renderCurrentScheme() {
+      const w = state.weight;
+      const c = state.cbdConcentration;
+      const t = state.topamaxStrength;
+
+      const drugs = [
+        { name: 'Clonazepam (Kriadex)', doseDesc: '6 + 5 + 8 gotas', dailyMg: 1.9, refMin: 0.1, refMax: 0.2 },
+        { name: 'Levetiracetam (Tamlet-S)', doseDesc: '6 mL + 6.5 mL', dailyMg: 1250, refMin: 20, refMax: 60 },
+        { name: 'Topiramato (Topamax)', doseDesc: '½ tab ×2 / día', dailyMg: t, refMin: 5, refMax: 9 },
+        { name: 'CBD (RH Oil 5)', doseDesc: '4 mL + 4.5 mL', dailyMg: 8.5 * c, refMin: 10, refMax: 20, isCbd: true }
+      ];
+
+      const tbody = $('tableCurrentScheme');
+      tbody.innerHTML = '';
+
+      drugs.forEach(d => {
+        const mgKg = d.dailyMg / w;
+        let statusChip = '';
+        if (d.isCbd) {
+          statusChip = '<span class="chip c-q">Dato a Confirmar</span>';
+        } else if (mgKg < d.refMin) {
+          statusChip = '<span class="chip c-lo">Bajo Rango</span>';
+        } else if (mgKg > d.refMax) {
+          statusChip = '<span class="chip c-hi">Sobre Rango</span>';
+        } else {
+          statusChip = '<span class="chip c-ok">En Rango</span>';
+        }
+
+        const maxScale = d.refMax * 1.5;
+        const targetStartPct = (d.refMin / maxScale) * 100;
+        const targetWidthPct = ((d.refMax - d.refMin) / maxScale) * 100;
+        const currentPosPct = Math.min(100, (mgKg / maxScale) * 100);
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${d.name}</strong></td>
+          <td>${d.doseDesc}</td>
+          <td>${d.dailyMg.toFixed(d.dailyMg < 10 ? 1 : 0)} mg</td>
+          <td><strong>${mgKg.toFixed(2)}</strong> mg/kg</td>
+          <td>
+            <div style="display:flex; align-items:center;">
+              <div class="range-bar-container">
+                <div class="range-bar-target" style="left:${targetStartPct}%; width:${targetWidthPct}%;"></div>
+                <div class="range-bar-marker" style="left:${currentPosPct}%;"></div>
+              </div>
+              <span class="text-small text-mute">${d.refMin}–${d.refMax}</span>
+            </div>
+          </td>
+          <td>${statusChip}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // SVG Visual Comparison Chart
+      renderCurrentDosesSvgChart(drugs, w);
+    }
+
+    function renderCurrentDosesSvgChart(drugs, w) {
+      const chartDiv = $('chartCurrentDoses');
+      const height = 180;
+      const width = 600;
+      const barHeight = 24;
+      const gap = 16;
+
+      let svg = `<svg class="interactive-chart" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet">`;
+
+      drugs.forEach((d, i) => {
+        const y = 20 + i * (barHeight + gap);
+        const mgKg = d.dailyMg / w;
+        const maxScale = d.refMax * 1.5;
+
+        const chartAreaWidth = 380;
+        const chartAreaX = 170;
+
+        const targetX = chartAreaX + (d.refMin / maxScale) * chartAreaWidth;
+        const targetW = ((d.refMax - d.refMin) / maxScale) * chartAreaWidth;
+        const currentX = chartAreaX + Math.min(1, mgKg / maxScale) * chartAreaWidth;
+
+        // Label
+        svg += `<text x="10" y="${y + 16}" fill="var(--ink)" font-size="12" font-weight="bold">${d.name.split(' ')[0]}</text>`;
+
+        // Background track
+        svg += `<rect x="${chartAreaX}" y="${y}" width="${chartAreaWidth}" height="${barHeight}" fill="var(--line)" rx="4" />`;
+
+        // Target Range Rect
+        svg += `<rect x="${targetX}" y="${y}" width="${targetW}" height="${barHeight}" fill="var(--acc-bg)" stroke="var(--acc)" stroke-width="1.5" rx="4" />`;
+
+        // Current Marker Line
+        svg += `<line x1="${currentX}" y1="${y - 4}" x2="${currentX}" y2="${y + barHeight + 4}" stroke="var(--ink)" stroke-width="3.5" stroke-linecap="round" />`;
+
+        // Value Label
+        svg += `<text x="${chartAreaX + chartAreaWidth + 12}" y="${y + 16}" fill="var(--ink)" font-size="12" font-weight="bold">${mgKg.toFixed(2)} mg/kg</text>`;
+      });
+
+      svg += `</svg>`;
+      chartDiv.innerHTML = svg;
+    }
+
+    // Tab 1: Proposed CBD Titration
+    function renderPropTitration() {
+      const w = state.weight;
+      const c = state.propCbdConc || 1;
+      const th = state.propThcConc || 0;
+      const a = state.propStartDose || 2;
+      const s = state.propStepDose || 2;
+      const g = state.propTargetDose || 6;
+
+      const warningsContainer = $('propWarningsContainer');
+      warningsContainer.innerHTML = '';
+
+      if (th > 0) {
+        const thcTargetMg = (g * w / c) * th;
+        warningsContainer.innerHTML += `<div class="note-box warn">THC acumulado estimado en la meta: <strong>${thcTargetMg.toFixed(1)} mg/día</strong>. Exigir siempre Certificado de Análisis (COA); en pediatría se debe buscar la mínima exposición posible a THC.</div>`;
+      }
+      if (g > 12) {
+        warningsContainer.innerHTML += `<div class="note-box bad">Meta proyectada > 12 mg/kg/día: carece de respaldo metodológico para extractos de espectro completo; utilizar únicamente bajo estricta indicación médica.</div>`;
+      }
+      if (a > 5) {
+        warningsContainer.innerHTML += `<div class="note-box warn">Dosis de inicio > 5 mg/kg/día: superior a la recomendación de inicio para CBD farmacéutico purificado.</div>`;
+      }
+
+      // Generate titration steps up to week 12
+      let steps = [];
+      let currDose = a;
+      let week = 1;
+      while (week <= 12) {
+        steps.push({ week, dose: Math.min(currDose, g) });
+        if (currDose >= g) break;
+        currDose += s;
+        week++;
+      }
+
+      const controls = [
+        'Basal: Transaminasas (ALT/AST), Bicarbonato, Biometría Hemática',
+        'Vigilar sedación, somnolencia, babeo y apetito',
+        'Laboratorio de control ALT/AST (Semana 2 a 4)',
+        'Monitorear somnolencia diurna y trastorno digestivo (diarrea)',
+        'Revisar diario de crisis y laboratorios',
+        'Evaluación global de respuesta clínica a 12 semanas'
+      ];
+
+      const tbody = $('tablePropTitration');
+      tbody.innerHTML = '';
+
+      steps.forEach((st, idx) => {
+        const mgCbd = st.dose * w;
+        const mlPerDose = (mgCbd / 2) / c;
+        const mgThcDay = (mgCbd / c) * th;
+        const ctrlText = controls[Math.min(idx, controls.length - 1)];
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>Semana ${st.week}</td>
+          <td><strong>${st.dose.toFixed(1)}</strong> mg/kg/día</td>
+          <td>${mgCbd.toFixed(0)} mg</td>
+          <td><strong>${mlPerDose.toFixed(2)}</strong> mL (×2 tomas)</td>
+          <td>${mgThcDay.toFixed(1)} mg</td>
+          <td><span class="text-small">${ctrlText}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Render Titration Interactive Chart
+      renderPropTitrationSvgChart(steps, w, c, th);
+    }
+
+    function renderPropTitrationSvgChart(steps, w, c, th) {
+      const chartDiv = $('chartPropTitration');
+      const height = 200;
+      const width = 600;
+      const margin = { top: 20, right: 30, bottom: 35, left: 50 };
+      const chartW = width - margin.left - margin.right;
+      const chartH = height - margin.top - margin.bottom;
+
+      const maxWeek = Math.max(12, steps[steps.length - 1].week);
+      const maxDose = Math.max(10, ...steps.map(s => s.dose)) * 1.15;
+
+      let svg = `<svg class="interactive-chart" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet">`;
+
+      // Grid lines
+      for (let d = 0; d <= maxDose; d += 2) {
+        const y = margin.top + chartH - (d / maxDose) * chartH;
+        svg += `<line x1="${margin.left}" y1="${y}" x2="${margin.left + chartW}" y2="${y}" stroke="var(--line)" stroke-dasharray="3,3" />`;
+        svg += `<text x="${margin.left - 8}" y="${y + 4}" fill="var(--mute)" font-size="10" text-anchor="end">${d}</text>`;
+      }
+
+      // X Axis Points
+      const points = steps.map(s => {
+        const x = margin.left + ((s.week - 1) / (maxWeek - 1)) * chartW;
+        const y = margin.top + chartH - (s.dose / maxDose) * chartH;
+        return { x, y, week: s.week, dose: s.dose };
+      });
+
+      // Line path
+      const pathD = points.reduce((acc, p, i) => i === 0 ? `M ${p.x} ${p.y}` : `${acc} L ${p.x} ${p.y}`, '');
+      svg += `<path d="${pathD}" fill="none" stroke="var(--acc)" stroke-width="3" />`;
+
+      // Area under curve
+      const areaD = `${pathD} L ${points[points.length - 1].x} ${margin.top + chartH} L ${points[0].x} ${margin.top + chartH} Z`;
+      svg += `<path d="${areaD}" fill="var(--acc-bg)" opacity="0.4" />`;
+
+      // Points & Circles
+      points.forEach(p => {
+        svg += `<circle cx="${p.x}" cy="${p.y}" r="5" fill="var(--card)" stroke="var(--acc)" stroke-width="2.5" />`;
+        svg += `<text x="${p.x}" y="${margin.top + chartH + 18}" fill="var(--mute)" font-size="10" text-anchor="middle">Sem ${p.week}</text>`;
+      });
+
+      svg += `</svg>`;
+      chartDiv.innerHTML = svg;
+    }
+
+    // Tab 2: Interactions and Labs
+    function renderInteractionsAndLabs() {
+      const ixData = [
+        ['CBD + Clonazepam', 'Potenciación de sedación; participación de CYP3A4 y CYP2C19 con elevación potencial de niveles de nitrazepam/clonazepam.', 'Somnolencia marcada, hipotonía, ataxia, sialorrea (babeo).', 'Nivel II-III (Analogía clobazam proveniente de datos de acceso expandido)'],
+        ['CBD + Topiramato', 'Interacción farmacocinética descrita por Gaston 2017; elevación de niveles séricos de TPM.', 'Lentitud psicomotora, parestesias, hiporexia, acidosis metabólica.', 'Nivel II (Estudio prospectivo en cohorte)'],
+        ['CBD + Levetiracetam', 'Sin interacción farmacocinética conocida por vía CYP450 (eliminación renal de LEV).', 'Irritabilidad, alteración del sueño, cambios conductuales aditivos.', 'Nivel II-III'],
+        ['Clonazepam + Topiramato', 'Depresión aditiva sobre el Sistema Nervioso Central.', 'Somnolencia, torpeza cognitiva y mareo.', 'Práctica Clínica'],
+        ['Clonazepam + Levetiracetam', 'Efectos neuroconductuales combinados.', 'Irritabilidad diurna o somnolencia.', 'Práctica Clínica'],
+        ['Topiramato + Levetiracetam', 'Impacto aditivo sobre la función cognitiva y atención.', 'Lentitud del lenguaje, atencional.', 'Práctica Clínica']
+      ];
+
+      $('tableInteractions').innerHTML = ixData.map(r => `
+        <tr>
+          <td><strong>${r[0]}</strong></td>
+          <td>${r[1]}</td>
+          <td>${r[2]}</td>
+          <td><span class="chip c-lo">${r[3]}</span></td>
+        </tr>
+      `).join('');
+
+      const pkData = [
+        ['Clonazepam', 'Hepática vía CYP3A4 (nitrorreducción)', '~30–40 horas', 'Riesgo de tolerancia, depresión respiratoria y sialorrea; evitar suspensión súbita.'],
+        ['Levetiracetam', 'Hidrólisis enzimática (no CYP); ~66% excreción renal inalterada', '~6–8 horas', 'Ajustar dosis en insuficiencia renal; vigilar agitación conductual.'],
+        ['Topiramato', 'Excreción renal (~70% inalterado); menor metabolismo hepático', '~20 horas', 'Acidosis metabólica tubular, nefrolitiasis, oligohidrosis/hipohidrosis.'],
+        ['CBD', 'Extenso metabolismo hepático (CYP2C19, CYP3A4, UGT); inhibidor potente de CYP2C19', '~56–61 horas', 'Hepatotoxicidad (especialmente con valproato), somnolencia, diarrea.']
+      ];
+
+      $('tablePkPd').innerHTML = pkData.map(r => `
+        <tr>
+          <td><strong>${r[0]}</strong></td>
+          <td>${r[1]}</td>
+          <td>${r[2]}</td>
+          <td>${r[3]}</td>
+        </tr>
+      `).join('');
+
+      const labData = [
+        ['Antes de Iniciar / Cambiar CBD', 'Transaminasas (ALT, AST), Bilirrubinas, Biometría Hemática, Bicarbonato, Creatinina', 'Línea base indispensable para descartar toxicidad preexistente.'],
+        ['Semanas 2 a 4 tras Cambios', 'ALT, AST, Bilirrubinas totales y directas', 'Detectar hepatotoxicidad inducida por CBD en fase temprana.'],
+        ['Cada 3 Meses', 'Bicarbonato sérico, Creatinina, Biometría Hemática', 'Monitorear acidosis metabólica por topiramato y función renal.'],
+        ['En Cada Consulta Médica', 'Peso, Talla, Perímetro Cefálico, Evaluación de Apetito y Sueño', 'Supervisar curva de crecimiento y desarrollo neurocognitivo.'],
+        ['Ante Sospecha de Toxicidad', 'Niveles séricos de Topiramato y Levetiracetam', 'Confirmar acumulación farmacológica por interacción con CBD.']
+      ];
+
+      $('tableLabs').innerHTML = labData.map(r => `
+        <tr>
+          <td><strong>${r[0]}</strong></td>
+          <td>${r[1]}</td>
+          <td>${r[2]}</td>
+        </tr>
+      `).join('');
+    }
+
+    // Tab 3: Semiology & Symptoms Monitor
+    function renderSemiology() {
+      const symptoms = [
+        { id: 's1', text: 'Crisis convulsiva que dura más de 5 minutos o no cede', urgency: 3 },
+        { id: 's2', text: 'Respiración muy lenta, labios o uñas azuladas (cianosis), inconsciencia', urgency: 3 },
+        { id: 's3', text: 'Piel o escleras amarillentas (ictericia), orina color té oscuro', urgency: 2 },
+        { id: 's4', text: 'Vómitos persistentes o incapacidad total para tolerar líquidos', urgency: 2 },
+        { id: 's5', text: 'Erupción cutánea (rash) nueva, extendida o acompañada de fiebre', urgency: 2 },
+        { id: 's6', text: 'Somnolencia marcada, sialorrea (babeo) o falta de coordinación/marcha inestable', urgency: 1 },
+        { id: 's7', text: 'Pérdida significativa del apetito o diarrea frecuente', urgency: 1 },
+        { id: 's8', text: 'Irritabilidad marcada o cambios bruscos de conducta', urgency: 1 },
+        { id: 's9', text: 'Hormigueos, lentitud del habla o falta de sudoración ante el calor', urgency: 1 },
+        { id: 's10', text: 'Aumento en la frecuencia o intensidad de mioclonías/crisis respecto a la línea base', urgency: 1 }
+      ];
+
+      const container = $('symptomsChecklistContainer');
+      container.innerHTML = '';
+
+      symptoms.forEach(s => {
+        const isChecked = state.symptomsChecked.has(s.id);
+        const label = document.createElement('label');
+        label.style.display = 'flex';
+        label.style.alignItems = 'center';
+        label.style.gap = '0.6rem';
+        label.style.padding = '0.35rem 0.5rem';
+        label.style.borderRadius = 'var(--radius-sm)';
+        label.style.cursor = 'pointer';
+        label.style.background = isChecked ? 'var(--card-subtle)' : 'transparent';
+
+        label.innerHTML = `
+          <input type="checkbox" data-id="${s.id}" data-urgency="${s.urgency}" ${isChecked ? 'checked' : ''} style="width:auto; height:1.1rem; width:1.1rem;">
+          <span>${s.text}</span>
+        `;
+
+        label.querySelector('input').addEventListener('change', (e) => {
+          if (e.target.checked) {
+            state.symptomsChecked.add(s.id);
+          } else {
+            state.symptomsChecked.delete(s.id);
+          }
+          renderSemiologyAlert();
+        });
+
+        container.appendChild(label);
+      });
+
+      renderSemiologyAlert();
+    }
+
+    function renderSemiologyAlert() {
+      let maxUrgency = 0;
+      document.querySelectorAll('#symptomsChecklistContainer input:checked').forEach(input => {
+        const urg = parseInt(input.dataset.urgency, 10);
+        if (urg > maxUrgency) maxUrgency = urg;
+      });
+
+      const output = $('symptomsAlertOutput');
+      if (maxUrgency === 3) {
+        output.className = 'note-box bad';
+        output.innerHTML = '<strong>¡EMERGENCIA MÉDICA INMEDIATA!</strong> Llame al servicio de emergencias o acuda inmediatamente a urgencias hospitalarias.';
+      } else if (maxUrgency === 2) {
+        output.className = 'note-box bad';
+        output.innerHTML = '<strong>CONSULTA MÉDICA URGENTE (MISMO DÍA):</strong> Contacte a neuropediatría y realice pruebas analíticas de laboratorio inmediatas.';
+      } else if (maxUrgency === 1) {
+        output.className = 'note-box warn';
+        output.innerHTML = '<strong>Aviso a Neuropediatría Hoy:</strong> Posibles efectos adversos o interacciones. No modifique las dosis por su cuenta.';
+      } else {
+        output.className = 'note-box ok';
+        output.innerHTML = 'Sin signos marcados actualmente.';
+      }
+    }
+
+    // Tab 4: Evidence Explorer
+    const evidenceData = [
+      ["I","p","Devinsky O et al. N Engl J Med 2017;376:2011-20","10.1056/NEJMoa1611618","v","Trial of Cannabidiol for Drug-Resistant Seizures in the Dravet Syndrome","Ensayo doble ciego en 120 niños con Dravet: CBD 20 mg/kg/día o placebo. Crisis convulsivas reducidas de 12.4 a 5.9 con CBD vs 14.9 a 14.1 con placebo (p=0.01).","Demuestra eficacia de CBD farmacéutico en encefalopatía epiléptica con politerapia."],
+      ["I","p","Miller I et al. JAMA Neurol 2020;77:613-21","10.1001/jamaneurol.2020.0073","v","Dose-Ranging Effect of Adjunctive Oral Cannabidiol vs Placebo Dravet","Dravet: comparó 10 y 20 mg/kg/día vs placebo. Reducción de crisis: 48.7% con 10 mg/kg vs 45.7% con 20 mg/kg.","Demuestra que duplicar la dosis no añadió eficacia y sí duplicó efectos adversos."],
+      ["I","p","Devinsky O et al. N Engl J Med 2018;378:1888-97","10.1056/NEJMoa1714631","v","Effect of Cannabidiol on Drop Seizures in the Lennox-Gastaut Syndrome","225 pacientes con LGS: caídas reducidas 41.9% con 20 mg/kg y 37.2% con 10 mg/kg vs 17.2% placebo.","Ensayo pivote en LGS; respalda efectividad en atónicas y caídas."],
+      ["I","p","Thiele EA et al. Lancet 2018;391:1085-96","10.1016/S0140-6736(18)30136-3","v","Cannabidiol in patients with LGS GWPCARE4","171 pacientes con LGS, CBD 20 mg/kg/día: reducción de caídas 43.9% vs 21.8% placebo.","Confirma de forma independiente el beneficio en caídas con monitoreo estricto."],
+      ["I","p","Thiele EA et al. JAMA Neurol 2021;78:285-92","10.1001/jamaneurol.2020.4607","v","Add-on Cannabidiol Treatment in Tuberous Sclerosis Complex","224 pacientes con TSC: 25 y 50 mg/kg/día redujeron crisis 49% y 48% vs 27% placebo. Elevated ALT/AST in 18.9%.","25 mg/kg logró igual eficacia que 50 mg/kg con menor hepatotoxicidad."],
+      ["II","pe","Pamplona FA et al. Front Neurol 2018;9:759","10.3389/fneur.2018.00759","v","Benefits of CBD-Rich Cannabis Extracts Over Purified CBD","Metaanálisis observacional. Con umbral ≥50% reducción de crisis, no hubo diferencia significativa (37% extractos vs 42% purificado, p=0.52).","Publicado en Front Neurol (no Pharmacol). Muestra equivalencia en respondedores clínicos."],
+      ["II","p","Gaston TE et al. Epilepsia 2017;58:1586-92","","n","Interactions between cannabidiol and commonly used antiepileptic drugs","81 pacientes con CBD: elevación significativa de niveles séricos de topiramato y rufinamida.","Demuestra la necesidad de medir niveles de topiramato al agregar CBD."],
+      ["III","e","Ríos-Pohl L et al. Epilepsia Open 2024;9:2546-52","10.1002/epi4.13081","v","Chemical analysis of cannabidiol substances used for refractory epilepsy","Análisis HPLC: productos caseros mostraron concentraciones de THC impredecibles de hasta 388 mg/mL.","Evidencia crítica sobre el peligro de usar concentrados caseros sin COA."]
+    ];
+
+    function renderEvidence() {
+      // Filter Buttons setup
+      const lvlContainer = $('filterEvidenceLevels');
+      const levels = { 'T': 'Todos los Niveles', 'I': 'Nivel I (RCTs)', 'II': 'Nivel II (Cohortes)', 'III': 'Nivel III (Series)', 'IV': 'Nivel IV/V (Preclínica/Rev)' };
+      lvlContainer.innerHTML = Object.keys(levels).map(k => `
+        <button class="${k === state.selectedEvidenceLevel ? 'chip c-ok' : 'chip'}" style="cursor:pointer;" onclick="setEvidenceLevel('${k}')">${levels[k]}</button>
+      `).join('');
+
+      const topContainer = $('filterEvidenceTopics');
+      const topics = { 'a': 'Todos los Temas', 'p': 'CBD Purificado', 'e': 'Espectro Completo', 'c': 'Comparativa Directa' };
+      topContainer.innerHTML = Object.keys(topics).map(k => `
+        <button class="${k === state.selectedEvidenceTopic ? 'chip c-ok' : 'chip'}" style="cursor:pointer;" onclick="setEvidenceTopic('${k}')">${topics[k]}</button>
+      `).join('');
+
+      // Show/Hide Comparison
+      const cmpContainer = $('evidenceComparisonContainer');
+      if (state.selectedEvidenceTopic === 'c') {
+        cmpContainer.style.display = 'block';
+        $('tableEvidenceComparison').innerHTML = `
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Criterio Comparativo</th>
+                  <th>CBD Purificado Farmacéutico</th>
+                  <th>Espectro Completo / Extractos Ricos</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Ensayos de Fase III</strong></td><td>5 Ensayos Aleatorizados Doble Ciego.</td><td>Cero ensayos aleatorizados; solo series observacionales.</td></tr>
+                <tr><td><strong>Respondedores (≥50% Mejora)</strong></td><td>42% en metaanálisis.</td><td>37% en metaanálisis (p=0.52, sin diferencia estadísticamente significativa).</td></tr>
+                <tr><td><strong>Control de Calidad</strong></td><td>Certificado estandarizado por norma GMP.</td><td>Alta variabilidad entre lotes; contenido de THC no garantizado.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        `;
+      } else {
+        cmpContainer.style.display = 'none';
+      }
+
+      // Filter Cards
+      const cardsStream = $('evidenceCardsStream');
+      const filtered = evidenceData.filter(r => {
+        const matchLvl = state.selectedEvidenceLevel === 'T' || r[0] === state.selectedEvidenceLevel;
+        const matchTop = state.selectedEvidenceTopic === 'a' || state.selectedEvidenceTopic === 'c' || r[1].includes(state.selectedEvidenceTopic);
+        return matchLvl && matchTop;
+      });
+
+      cardsStream.innerHTML = filtered.map((r, i) => {
+        const doiLink = r[3] ? `<a href="https://doi.org/${r[3]}" target="_blank" rel="noopener">doi:${r[3]}</a>` : '<span class="text-mute">Sin DOI directo</span>';
+        const pubmedSearch = `<a href="https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(r[5])}" target="_blank" rel="noopener">Buscar en PubMed</a>`;
+
+        return `
+          <div class="ref-card" id="refCard_${i}" onclick="toggleRefCard(${i})">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem;">
+              <div>
+                <span class="chip c-lo">Nivel ${r[0]}</span>
+                <strong style="margin-left:0.4rem;">${r[2]}</strong>
+              </div>
+              <div>${doiLink} · ${pubmedSearch}</div>
+            </div>
+            <div style="margin-top:0.4rem; font-weight:700; color:var(--ink);">${r[5]}</div>
+            <div class="ref-popover">
+              <p><strong>Hallazgo Principal:</strong> ${r[6]}</p>
+              <p style="margin-top:0.4rem;"><strong>Relevancia para el Caso:</strong> ${r[7]}</p>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    window.setEvidenceLevel = (lvl) => {
+      state.selectedEvidenceLevel = lvl;
+      renderEvidence();
+    };
+
+    window.setEvidenceTopic = (top) => {
+      state.selectedEvidenceTopic = top;
+      renderEvidence();
+    };
+
+    window.toggleRefCard = (idx) => {
+      const card = $(`refCard_${idx}`);
+      if (card) {
+        card.classList.toggle('expanded');
+      }
+    };
+
+    // Tab 5: BHO Calculator
+    function renderBhoCalculator() {
+      const w = state.weight;
+      const bg = state.bhoWeight || 0;
+      const bv = state.bhoVolume || 1;
+      const bc = (state.bhoConv || 0) / 100;
+      const targetCbdMgKg = state.bhoTargetCbd || 0;
+
+      const f = 0.877; // Decarboxylation factor
+
+      const extractMgPerMl = (bg * 1000) / bv;
+      const activeThcPerMl = (((state.bhoThca * f * bc) + state.bhoThc) / 100) * extractMgPerMl;
+      const activeCbdPerMl = (((state.bhoCbda * f * bc) + state.bhoCbd) / 100) * extractMgPerMl;
+
+      const targetCbdDailyTotalMg = targetCbdMgKg * w;
+      const mlNeededDaily = activeCbdPerMl > 0 ? targetCbdDailyTotalMg / activeCbdPerMl : 0;
+      const thcDailyTotalMg = mlNeededDaily * activeThcPerMl;
+
+      const ratio = activeThcPerMl > 0 ? activeCbdPerMl / activeThcPerMl : Infinity;
+
+      let statusBox = '';
+      if (activeCbdPerMl <= 0) {
+        statusBox = `<div class="note-box bad">Sin CBD activo detectable en la muestra: imposible calcular una dosis terapéutica.</div>`;
+      } else if (ratio < 16) {
+        statusBox = `<div class="note-box bad">Proporción CBD:THC = <strong>${ratio.toFixed(1)}:1</strong> (THC-dominante o Mixto). La literatura pediátrica exige CBD:THC ≥16:1. No apto para uso pediátrico sin supervisión neurológica expresa.</div>`;
+      } else {
+        statusBox = `<div class="note-box ok">Proporción CBD:THC = <strong>${isFinite(ratio) ? ratio.toFixed(0) : 'Sin THC'}:1</strong> (Cumple la recomendación de referencia ≥16:1). Sujeto a comprobación de microbiología y solventes.</div>`;
+      }
+
+      $('bhoResultsContainer').innerHTML = `
+        <div class="table-container">
+          <table>
+            <tbody>
+              <tr><th>Concentración de Extracto Bruto</th><td><strong>${extractMgPerMl.toFixed(1)} mg / mL</strong></td></tr>
+              <tr><th>CBD Activo Estimado</th><td><strong>${activeCbdPerMl.toFixed(2)} mg / mL</strong></td></tr>
+              <tr><th>THC Activo Estimado</th><td><strong>${activeThcPerMl.toFixed(2)} mg / mL</strong></td></tr>
+              <tr><th>Volumen Requerido para Dosis Meta</th><td><strong>${mlNeededDaily.toFixed(2)} mL / día</strong> (${(mlNeededDaily / 2).toFixed(2)} mL por toma)</td></tr>
+              <tr><th>Exposición Diaria Acumulada a THC</th><td><strong>${thcDailyTotalMg.toFixed(1)} mg THC / día</strong> (${(thcDailyTotalMg / w).toFixed(2)} mg/kg/día)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        ${statusBox}
+        <p class="text-small text-mute" style="margin-top:0.5rem;">
+          <em>Fórmula de Descarboxilación:</em> <code>THC_activo = (THCA × 0.877 × %conv) + THC_neutro</code>. El factor 0.877 representa la pérdida de peso molecular del grupo carboxilo (COOH) liberado en forma de CO₂ durante la descarboxilación térmica.
+        </p>
+      `;
+    }
+
+    // Tab 6: Workflow Roadmap
+    function renderWorkflow() {
+      const steps = [
+        { title: '1. Diagnóstico Diferencial Sindrómico', role: 'Neuropediatría', desc: 'Video-EEG de sueño/vigilia, Resonancia Magnética de alto campo, panel genético de epilepsias y tamiz metabólico. Precisar si corresponde a Síndrome de Doose, Dravet, LGS o epilepsia mioclónica progresiva.', cond: [['El síndrome está definido', 'Seguir ruta clínica específica'], ['Sin síndrome definido', 'Completar estudio genético antes de modificar cannabinoides']] },
+        { title: '2. Conciliación Farmacéutica', role: 'QFB + Neuropediatría', desc: 'Verificar concentraciones exactas y lotes de Kriadex (1 gota = 0.1 mg), Tamlet-S, mg por tableta de Topamax y Certificado de Análisis (COA) del aceite CBD.', cond: [['No existe COA verificado', 'Pausar escalado de dosis hasta obtenerlo']] },
+        { title: '3. Mapa de Carga Metabólica', role: 'Farmacología Clínica', desc: 'Evaluar vías CYP450: clonazepam (CYP3A4) y CBD (CYP2C19/3A4). Evaluar suma de sedación central por benzodiazepina y topiramato.', cond: [['Presenta somnolencia severa o ataxia', 'Avisar a neuropediatría antes de cambiar cualquier dosis']] },
+        { title: '4. Pruebas de Línea Base', role: 'Laboratorio Clínico', desc: 'Análisis de ALT, AST, bilirrubina, biometría hemática, bicarbonato sérico y niveles de topiramato. Registro de diario de crisis por 4 semanas.', cond: [['ALT o AST > 3 veces límite normal', 'Diferir inicio de titulación']] },
+        { title: '5. Elección de Producto Estandarizado', role: 'Neuropediatría + Familia', desc: 'Seleccionar entre CBD purificado farmacéutico (Dravet/LGS/TSC) o extracto de espectro completo estandarizado con proporción CBD:THC ≥ 16:1.', cond: [['Producto sin análisis de solventes', 'Rechazar uso pediátrico']] },
+        { title: '6. Puente y Transición', role: 'QFB', desc: 'Igualar exactamente la dosis miligramo/kilogramo de CBD del producto anterior. Mantener constantes la dieta y vehículo graso de administración.', cond: [['Cambio en vehículo o comida alta en grasa', 'Ajustar horarios; exposición puede variar hasta 5 veces']] },
+        { title: '7. Titulación Semanal', role: 'Neuropediatría', desc: 'Aumentar en escalones semanales de 1–2 mg/kg/día con monitoreo de transaminasas a las semanas 2–4 y vigilancia de sedación.', cond: [['Somnolencia diurna excesiva', 'Evaluar reducción paulatina de clonazepam']] },
+        { title: '8. Evaluación a 12 Semanas', role: 'Neuropediatría', desc: 'Comparar frecuencia de crisis contra línea base de 4 semanas.', cond: [['≥ 50% reducción de mioclonías', 'Mantener esquema y consolidar'], ['< 25% respuesta', 'Desescalar y retornar a esquema previo']] }
+      ];
+
+      $('workflowStepsContainer').innerHTML = steps.map((st, i) => `
+        <div class="workflow-step" data-step="${i + 1}">
+          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.4rem;">
+            <h3>${st.title}</h3>
+            <span class="chip c-lo">${st.role}</span>
+          </div>
+          <p>${st.desc}</p>
+          <div class="workflow-decision">
+            ${st.cond.map(c => `<div><strong>Si</strong> ${c[0]} ➔ <em>${c[1]}</em></div>`).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+  </script>
+</body>
+</html>
