@@ -1,74 +1,55 @@
-# Development Log (DevLog v1.0)
+# Development Log (DevLog v1.0 Sínergico)
 
-> **Bitácora de Desarrollo, Arquitectura e Ingeniería de Software**
+> **Bitácora de Desarrollo, Integración Sínergica e Inventario Tecnológico**
 >
 > *Proyecto: Refactorización y Creación del Dashboard Interactivo - Mapa Terapéutico para Epilepsia Mioclónica Pediatría*
 
 ---
 
-## 📅 Hitos del Desarrollo
-
-### Fase 1: Análisis y Exploración del Repositorio Basal
-- **Fecha:** Octubre 2026
-- **Acciones Realizadas:**
-  - Inspección profunda del archivo Markdown fuente (`Mapa terapéutico_ epilepsia mioclónica.md`) y del prototipo HTML legado monolítico (`Mapa terapéutico_ epilepsia mioclónica (2).html`).
-  - Extracción y análisis del bloque JavaScript original (31 KB unificado).
-  - Identificación de inconsistencias citacionales, vacíos de cálculo en acumulación de THC y falta de gráficos vectoriales interactivos.
+## 🛠️ Filosofía de Desarrollo: Sinergia Incremental
+El objetivo principal de la Versión 1.0 fue lograr la **sinergia absoluta**: actualizar la experiencia visual y funcional (UI/UX) **sin restar ni omitir ningún dato, cita, tabla, nota o insight presente en el prototipo original v0**.
 
 ---
 
-### Fase 2: Arquitectura del Nuevo Sistema (`index.html`)
-- **Decisión de Arquitectura:** Creación de una aplicación web monolítica moderna (HTML5, CSS3 modular con variables de diseño, Vanilla JS ES6+) para garantizar **cero dependencias de compilación** y despliegue automático inmediato en GitHub Pages.
-- **Aspectos Clave de UI/UX:**
-  - Tipografía médica especializada: *Atkinson Hyperlegible* (legibilidad mejorada) y *Newsreader* (elegancia editorial médica).
-  - Selector de perspectiva activa: Modo **Familia** (lenguaje preventivo accesible) vs. Modo **Neurología** (detalle técnico farmacocinético, vías CYP450 y metodológico).
-  - Selector de modo de tema: **Claro**, **Oscuro** (Dark Mode optimizado para baja fatiga visual) y **Auto**.
-  - Panel deslizante de datos del paciente con persistencia de estado mediante `localStorage`.
+## 🚀 Cronología de Funcionalidades Implementadas
+
+### 1. Interfaz Web Reactiva y Accesible (`index.html`)
+- **Arquitectura Monolítica Progresiva:** HTML5 semántico, CSS3 con variables custom para modo Claro/Oscuro/Auto, Vanilla JS ES6+.
+- **Navegación por Pestañas Adaptativas:** 7 pestañas modulares con iconos vectoriales.
+- **Selector de Perspectiva Activa:**
+  - *Modo Familia:* Foco en alertas, diario de crisis y lenguaje accesible.
+  - *Modo Neurología:* Foco en farmacocinética, vías CYP, vidas medias e interacciones.
+- **Persistencia en `localStorage`:** Mantiene guardados los parámetros del paciente (peso, talla, edad, sexo, dosis) entre sesiones.
+
+### 2. Tarjetas Emergentes al Pasar el Cursor (*On-Hover Flashcards*)
+- Implementación de la funcionalidad **On-Hover / On-Focus Flashcards** en el explorador de evidencia.
+- Al pasar el cursor o hacer foco sobre una tarjeta bibliográfica, se despliega instantáneamente un popover flotante (*Flashcard*) con los hallazgos clave, relevancia clínica, etiqueta de DOI verificado y enlace directo de búsqueda en PubMed.
+
+### 3. Componentes Vectoriales SVG Interactivas
+- **Gráfico de Dosificación Actual (`chartCurrentDoses`):** Muestra visualmente las dosis en mg/kg/día frente a los rangos terapéuticos normativos.
+- **Gráfico de Titulación Semanal (`chartPropTitration`):** Dibuja la curva de escalado gradual de CBD, área bajo la curva e hitos de laboratorio.
+
+### 4. Cobertura del 100% de la Data Original
+- **23 Referencias de Literatura:** Incluye todos los niveles de evidencia (I a V), citando estudios aleatorizados, metaanálisis, preclínica y química analítica de concentrados.
+- **9 Pasos de Ruta Crítica:** Mantiene todos los pasos del protocolo con roles, decisiones "Si... Entonces" e *Insights* prácticos.
+- **Calculadora BHO / Concentrados:** Incorpora la fórmula de descarboxilación ($0.877$), desglose de THCA/CBDA y verificación de ratio $\ge 16:1$.
 
 ---
 
-### Fase 3: Implementación de Módulos e Interactividad Vectorial SVG
-1. **Módulo 1 (Esquema Actual):**
-   - Implementación de tabla reactiva de dosificación por kg/día.
-   - Desarrollo del componente vectorial **SVG `chartCurrentDoses`** para comparar dosis actuales con barras de rango objetivo normativo.
-2. **Módulo 2 (Propuesta CBD & Titulación):**
-   - Desarrollo del simulador de titulación semanal con cálculo automático de acumulación diaria de THC.
-   - Creación del **Gráfico Vectorial SVG `chartPropTitration`** con área bajo la curva y marcadores de hitos de laboratorio.
-3. **Módulo 3 (Interacciones & PK/PD):**
-   - Construcción de la matriz de interacciones combinadas y fichas farmacocinéticas de clonazepam, levetiracetam, topiramato y CBD.
-4. **Módulo 4 (Semiología & Triaje):**
-   - Implementación del checklist interactivo de 10 síntomas con ponderación de urgencia (Nivel 1 a 3) y caja de alerta dinámica.
-5. **Módulo 5 (Explorador de Evidencia):**
-   - Sistema de filtrado multidireccional por Nivel de Evidencia (I a V) y Tema.
-   - Fichas interactivas con popovers explicativos, DOIs verificados y búsqueda directa en PubMed.
-6. **Módulo 6 (Calculadora BHO / Concentrados):**
-   - Formulación analítica de descarboxilación con factor estequiométrico 0.877 y validación de ratio pediátrico $\ge 16:1$.
-7. **Módulo 7 (Ruta Crítica Algorítmica):**
-   - Diagrama de flujo secuencial de 8 pasos con nodos condicionales "Si... Entonces".
+## 📋 Inventario Sínergico de Archivos en el Repositorio
+
+```
+./
+├── .github/workflows/deploy.yml # Workflow oficial de GitHub Actions para GitHub Pages
+├── index.html                  # Dashboard web principal interactivo v1.0
+├── README.md                   # Documentación técnica max-verbose y guía del dashboard
+├── gap_analysis.md             # Matriz comparativa de brechas y evolución sínergica
+├── devlog.md                   # Bitácora de desarrollo y registro tecnológico
+├── Mapa terapéutico_ epilepsia mioclónica.md # Documento fuente original Markdown
+└── Mapa terapéutico_ epilepsia mioclónica (2).html # Prototipo borrador original v0
+```
 
 ---
 
-### Fase 4: Automatización CI/CD para GitHub Pages
-- **Archivo Creado:** `.github/workflows/deploy.yml`
-- **Configuración:** Workflow oficial de GitHub Actions utilizando `actions/checkout@v4`, `actions/configure-pages@v5`, `actions/upload-pages-artifact@v3` y `actions/deploy-pages@v4`.
-- **Resultado:** Despliegue automático y transparente en GitHub Pages con cada commit enviado a las ramas `main` o `master`.
-
----
-
-### Fase 5: Documentación Técnica exhaustiva
-- Elaboración de los tres documentos exigidos:
-  1. `README.md`: Max verbose, con sustento clínico, fórmulas matemáticas y guía de uso.
-  2. `gap_analysis.md`: Análisis comparativo de brechas entre el prototipo legado v0 y la v1.0.
-  3. `devlog.md`: Registro cronológico y técnico de la ingeniería aplicada.
-
----
-
-## 🧪 Verificación y Pruebas
-- **Validación Estructural HTML:** Confirmación de etiquetas semánticas y cierre correcto (`<!DOCTYPE html>` a `</html>`).
-- **Verificación de IDs en DOM:** Comprobación automatizada mediante Node.js de la presencia del 100% de los IDs requeridos.
-- **Prueba de Renderizado:** Ejecución de servidor local HTTP y verificación de transferencia sin errores (HTTP 200 OK).
-
----
-
-## 📌 Conclusión
-La versión **v1.0** se encuentra completada, verificada y documentada con el máximo rigor exigido.
+## ✅ Conclusión
+El desarrollo ha culminado exitosamente reuniendo todas las mejoras previas con las nuevas capacidades avanzadas de UI/UX, gráficos SVG y automatización de despliegue.

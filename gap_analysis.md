@@ -1,114 +1,51 @@
-# Gap Analysis: Prototipo Legado vs. Versión 1.0 (Refactorizada)
+# Gap Analysis & Synergistic Feature Evolution
 
-> **Documento de Auditoría Metodológica, Análisis de Brechas e Ingeniería de Software**
+> **Análisis Comparativo de Brechas, Evolución de Funcionalidades y Registro Sínergico So-Far**
 >
 > *Proyecto: Mapa Terapéutico e Interactivo para Epilepsia Mioclónica Pediatría*
 
 ---
 
-## Executive Summary
+## 📋 Resumen Ejecutivo de la Evolución Terapéutica
 
-El presente **Gap Analysis** compara de forma sistemática el estado inicial del proyecto —representado por el prototipo HTML monolítico legado (`Mapa terapéutico_ epilepsia mioclónica (2).html`) y su documento Markdown equivalente— frente a la **Versión 1.0 Refactorizada** (`index.html`).
+Este documento detalla la comparativa técnica entre el **Prototipo Legado (v0)**, las **Mejoras Intermedias** y la **Versión 1.0 Final Refactorizada con Sinergia Total**.
 
-El análisis cubre 6 dimensiones críticas:
-1. **Arquitectura de Software y Código**
-2. **Interfaz de Usuario, UX y Accesibilidad (UI/UX)**
-3. **Precisión Matemática, Farmacocinética y Algoritmos**
-4. **Rigor Científico, Citacional y Auditoría de Literatura**
-5. **Semiología, Seguridad Clínica y Alertas**
-6. **Despliegue e Integración Continua**
+El principio fundamental que guió este desarrollo fue la **sinergia incremental**: conservar e integrar **el 100% del contenido clínico, datos, citas y notas originales** mientras se agregan capacidades interactivas avanzadas, tarjetas flotantes al pasar el cursor (*On-Hover Flashcards*), gráficos vectoriales SVG dinámicos y herramientas de triaje semiológico.
 
 ---
 
-## 📊 Matriz Comparativa Sintética
+## 📊 Matriz Sínergica Comparativa (v0 vs. v1.0)
 
-| Dimensión | Prototipo Legado (v0) | Versión 1.0 Refactorizada | Impacto / Mejora |
+| Módulo / Funcionalidad | Prototipo Original Legado (v0) | Versión 1.0 Refactorizada Sínergica | Aporte Sínergico / Mejora |
 | :--- | :--- | :--- | :--- |
-| **Estructura HTML** | HTML5 plano con etiquetas mixtas | HTML5 semántico limpio (`<header>`, `<nav>`, `<main>`, `<section>`, `<footer>`) | Accesibilidad WCAG 2.1 AA |
-| **Diseño y CSS** | Inline/Embedded CSS no estructurado | Tokens de diseño CSS nativos con variables CSS custom para modo Claro / Oscuro | Mantenibilidad y coherencia visual |
-| **Visualización Gráfica** | Barras HTML/CSS estáticas básicas | **Gráficos vectoriales SVG dinámicos e interactivos** (Curvas de titulación y rangos) | Comprensión clínica superior |
-| **Persistencia de Datos** | Ninguna (se perdían cambios al recargar) | **Sincronización con `localStorage`** | Experiencia de usuario continua |
-| **Modos de Perspectiva** | Modificación básica de clases CSS | **Conmutador activo *Familia* vs. *Neurología*** | Adaptación contextual precisa |
-| **Cálculo de THC** | Omitido en la calculadora semanal | **Cuantificación diaria de acumulación de THC** (mg/día y mg/kg/día) | Seguridad pediátrica preventiva |
-| **Cálculo de Descarboxilación** | BHO básico sin desglose analítico | **Formulación estequiométrica con factor 0.877 y ratio CBD:THC** | Rigor químico y farmacéutico |
-| **Control de Alertas** | Texto estático simple | **Motor dinámico de triaje semiológico** con 3 niveles de urgencia | Respuesta clínica inmediata |
-| **Auditoría Citacional** | Citas erróneas (Devinsky 2019, Pamplona Front Pharmacol) | **Fe de erratas corregida, DOIs verificados y enlaces directos a PubMed** | Integridad académica |
-| **CI/CD Deploy** | Inexistente | **Workflow automático en GitHub Actions** (`.github/workflows/deploy.yml`) | Despliegue automatizado |
+| **Tarjeta de Ficha Médica (*Flashcards*)** | Ocultamiento estático básico | **Flashcards emergentes con despliegue al pasar el cursor (`:hover`), foco (`:focus-within`) y clic** | Lectura ultra fluida, rápida e intuitiva sin perder el hilo de navegación. |
+| **Volumen de Literatura y Citas** | 23 Referencias (algunas con errores de DOI) | **23 Referencias con fe de erratas corregida, DOI directo verificado y búsqueda automatizada en PubMed** | 100% de conservación de evidencia con integridad académica garantizada. |
+| **Ruta Crítica Algorítmica** | 9 Pasos secuenciales básicos | **9 Pasos interactivos completos con roles (QFB / Neuropediatría), nodos condicionales "Si... Entonces" e *Insights* clínicos integrados** | Claridad en la toma de decisiones para el equipo médico y la familia. |
+| **Gráficos de Dosificación** | Barras HTML estáticas simples | **Gráficos vectoriales SVG dinámicos e interactivos** (Rangos normativos + Curva de escalado semanal con área bajo la curva) | Visualización cuantitativa inmediata de la exposición a fármacos y THC. |
+| **Proyección de THC Acumulado** | Inexistente en la tabla semanal | **Cuantificación semanal explícita de THC acumulado (mg/día y mg/kg/día)** | Previene la exposición involuntaria a THC en cerebro en desarrollo. |
+| **Calculadora BHO / Concentrados** | Aritmética simple sin descarboxilación | **Calculadora analítica completa con factor estequiométrico 0.877, conversión ácida (THCA/CBDA) y verificación de ratio $\ge 16:1$** | Precisión química y farmacéutica de laboratorio. |
+| **Triaje Semiológico** | Texto plano simple | **Monitor interactivo con checklist de 10 síntomas, ponderación de urgencia (1 a 3) y avisos dinámicos** | Respuesta rápida de seguridad ante eventos adversos o crisis. |
+| **Conmutador de Perspectiva** | Ocultamiento CSS simple | **Perspectiva activa dual (*Familia* vs. *Neurología*)** | Adapta el lenguaje y nivel de detalle según la audiencia. |
+| **Persistencia de Datos** | Sin almacenamiento | **Sincronización en tiempo real con `localStorage`** | Preserva peso, talla, edad, dosis y selecciones al recargar. |
+| **Despliegue Automático** | Manual / Sin CI | **GitHub Actions Workflow (`.github/workflows/deploy.yml`)** | Despliegue continuo hacia GitHub Pages en cada push. |
 
 ---
 
-## 🔍 Análisis Detallado de Brechas por Dimensión
+## 🔍 Inventario Detallado de Funcionalidades So-Far
 
-### 1. Arquitectura de Software y Mantenibilidad
+### 1. Sistema de Tarjetas Emergentes Al Pasar el Cursor (*On-Hover Flashcards*)
+- **Mecanismo:** CSS puro combinado con interacción JavaScript (`:hover`, `:focus-within` y `.expanded`).
+- **Comportamiento:** Al posicionar el cursor o enfocar con el teclado cualquier tarjeta de referencia bibliográfica o paso de la ruta crítica, se despliega una ficha flotante enriquecida con:
+  - **Hallazgo Clave:** Resumen metodológico del estudio.
+  - **Relevancia para el Caso:** Aplicación práctica al esquema del paciente.
+  - **Identificadores:** Enlaces directos a DOI y PubMed.
 
-* **Brecha Identificada en Legado:**
-  * El código JavaScript original presentaba un estilo fuertemente ofuscado / minificado a mano (p. ej. `const $=id=>document.getElementById(id),W=()=>+$('w').value||26;`), lo que impedía la audibilidad por parte de otros ingenieros o clínicos.
-  * Falta de separación clara entre las funciones de renderizado DOM y la lógica pura de cálculo.
-
-* **Solución Implementada en v1.0:**
-  * Se diseñó un patrón de **Manejo de Estado Centralizado** (`state` object).
-  * Funciones de renderizado modulares y puras (`renderCurrentScheme()`, `renderPropTitration()`, `renderBhoCalculator()`, etc.).
-  * Código limpio, autodocumentado y comentado en español estándar.
-
----
-
-### 2. UI/UX, Accesibilidad y Responsividad
-
-* **Brecha Identificada en Legado:**
-  * El cajón flotante de datos del paciente invadía el área de navegación en pantallas móviles pequeñas.
-  * Los botones de pestañas carecían de contraste adecuado en modo oscuro y de indicadores visuales claros de foco (`focus-visible`).
-  * No existían gráficos vectoriales para entender la tendencia de dosificación.
-
-* **Solución Implementada en v1.0:**
-  * **Poderosa tipografía médica accesible:** Uso de *Atkinson Hyperlegible* (diseñada por el Braille Institute para baja visión) combinada con *Newsreader* para encabezados legibles.
-  * **Componentes Vectoriales SVG Custom:**
-    * Gráfico de dosificación actual vs rangos objetivo.
-    * Gráfico de curva de escalado semanal de CBD con área bajo la curva e hitos de control.
-  * **Diseño Fluid Responsive:** Rejillas CSS Grid autoadaptables sin desbordamiento horizontal.
+### 2. Conservación del 100% de los Datos del Repositorio
+- **Evidencia Científica:** Se preservan los 23 registros de literatura (Ensayos Fase III de Devinsky, Thiele, Miller; metaanálisis de Pamplona 2018; estudios de interacciones de Gaston, Geffrey, Szaflarski; preclínica de Russo, Santiago, Cogan; y análisis analíticos de Ríos-Pohl 2024).
+- **Ruta Crítica Integrada:** Se conservan los 9 pasos del protocolo desde el diagnóstico diferencial sindrómico hasta la evaluación a 12 semanas.
 
 ---
 
-### 3. Precisión Matemática y Algoritmos Farmacológicos
+## 📈 Conclusión del Análisis
 
-* **Brechas Matemáticas en Legado:**
-  1. *Omisión de THC en Titulación:* La propuesta de espectro completo no proyectaba el THC resultante por día según el ratio del extracto.
-  2. *Meta sin respaldo:* Establecía una meta prescriptiva de "máx. 12 mg/kg" en espectro completo sin citar fuente.
-  3. *Extracto BHO:* No desglosaba la conversión porcentual de descarboxilación del ácido cannabidiólico (CBDA) ni cannabidiol neutro (CBD).
-
-* **Solución Implementada en v1.0:**
-  1. *Ecuación Completa de Exposición a THC:*
-     $$M_{\text{THC}} = \left(\frac{\text{Dosis CBD (mg)}}{C_{\text{CBD}}}\right) \times C_{\text{THC}}$$
-  2. *Factor Estequiométrico de Descarboxilación (0.877):*
-     $$\% \text{CBD}_{\text{total}} = (\% \text{CBDA} \times 0.877 \times \% \text{conversión}) + \% \text{CBD}_{\text{neutro}}$$
-  3. *Validación de Ratio $\ge 16:1$:* Notificación automática de inviabilidad si el concentrado es THC-dominante.
-
----
-
-### 4. Rigor Científico y Auditoría Citacional
-
-* **Brechas en Citas del Legado:**
-  * Devinsky NEJM LGS figuraba como año 2019 (correcto: 2018).
-  * Metaanálisis de Pamplona asignado a *Frontiers in Pharmacology* (correcto: *Frontiers in Neurology*).
-  * Promoción de la afirmación "71% vs 46%" como eficacia comprobada, cuando corresponde a percepción cualitativa observacional reportada por padres en encuesta (mientras que en el end-point objetivo $\ge 50\%$ reducción no hubo diferencia: $37\%$ vs $42\%$).
-
-* **Solución Implementada en v1.0:**
-  * Creación de un **Sección de Auditoría Metodológica** explícita.
-  * Incorporación de DOIs funcionales comprobados.
-  * Enlaces directos de búsqueda rápida en PubMed para cada artículo citante.
-
----
-
-### 5. Triaje Semiológico y Alertas de Seguridad
-
-* **Brecha Identificada en Legado:**
-  * El selector de síntomas requería que el usuario dedujera la gravedad de las respuestas.
-
-* **Solución Implementada en v1.0:**
-  * Clasificación interna de gravedad por puntuación pesada (Nivel 1 a Nivel 3).
-  * Generación dinámica de cajas de aviso resaltadas con código de colores WCAG (*Bad/Red*, *Warn/Yellow*, *Ok/Green*).
-
----
-
-## 📈 Conclusión de Brechas
-
-La versión **v1.0 Refactorizada** elimina el 100% de las inconsistencias metodológicas, matemáticas e interfaz del prototipo legado, convirtiendo el documento en un **dashboard web clínico interactivo de clase producción**, listo para su publicación pública en GitHub Pages.
+La versión **v1.0** representa la **sinergia perfecta**: no se eliminó ni un solo dato o concepto del trabajo previo, sino que se potenciaron mediante una interfaz web accesible, reactiva y visualmente superior.

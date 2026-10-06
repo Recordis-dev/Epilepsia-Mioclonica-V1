@@ -602,8 +602,26 @@
       transition: background-color var(--transition-fast), transform var(--transition-fast);
     }
 
-    .ref-card:hover, .ref-card:focus-within {
-      background: var(--card-subtle);
+    .ref-card {
+      position: relative;
+    }
+    .ref-card:hover .ref-popover,
+    .ref-card:focus-within .ref-popover,
+    .ref-card.expanded .ref-popover {
+      display: block !important;
+      animation: fadeIn var(--transition-fast);
+    }
+    .ref-popover {
+      display: none;
+      background: var(--card);
+      border: 2px solid var(--acc);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      margin-top: 0.75rem;
+      box-shadow: var(--shadow-lg);
+      font-size: 0.88rem;
+      line-height: 1.55;
+      z-index: 50;
     }
 
     .ref-popover {
@@ -1887,15 +1905,239 @@
 
     // Tab 4: Evidence Explorer
     const evidenceData = [
-      ["I","p","Devinsky O et al. N Engl J Med 2017;376:2011-20","10.1056/NEJMoa1611618","v","Trial of Cannabidiol for Drug-Resistant Seizures in the Dravet Syndrome","Ensayo doble ciego en 120 niños con Dravet: CBD 20 mg/kg/día o placebo. Crisis convulsivas reducidas de 12.4 a 5.9 con CBD vs 14.9 a 14.1 con placebo (p=0.01).","Demuestra eficacia de CBD farmacéutico en encefalopatía epiléptica con politerapia."],
-      ["I","p","Miller I et al. JAMA Neurol 2020;77:613-21","10.1001/jamaneurol.2020.0073","v","Dose-Ranging Effect of Adjunctive Oral Cannabidiol vs Placebo Dravet","Dravet: comparó 10 y 20 mg/kg/día vs placebo. Reducción de crisis: 48.7% con 10 mg/kg vs 45.7% con 20 mg/kg.","Demuestra que duplicar la dosis no añadió eficacia y sí duplicó efectos adversos."],
-      ["I","p","Devinsky O et al. N Engl J Med 2018;378:1888-97","10.1056/NEJMoa1714631","v","Effect of Cannabidiol on Drop Seizures in the Lennox-Gastaut Syndrome","225 pacientes con LGS: caídas reducidas 41.9% con 20 mg/kg y 37.2% con 10 mg/kg vs 17.2% placebo.","Ensayo pivote en LGS; respalda efectividad en atónicas y caídas."],
-      ["I","p","Thiele EA et al. Lancet 2018;391:1085-96","10.1016/S0140-6736(18)30136-3","v","Cannabidiol in patients with LGS GWPCARE4","171 pacientes con LGS, CBD 20 mg/kg/día: reducción de caídas 43.9% vs 21.8% placebo.","Confirma de forma independiente el beneficio en caídas con monitoreo estricto."],
-      ["I","p","Thiele EA et al. JAMA Neurol 2021;78:285-92","10.1001/jamaneurol.2020.4607","v","Add-on Cannabidiol Treatment in Tuberous Sclerosis Complex","224 pacientes con TSC: 25 y 50 mg/kg/día redujeron crisis 49% y 48% vs 27% placebo. Elevated ALT/AST in 18.9%.","25 mg/kg logró igual eficacia que 50 mg/kg con menor hepatotoxicidad."],
-      ["II","pe","Pamplona FA et al. Front Neurol 2018;9:759","10.3389/fneur.2018.00759","v","Benefits of CBD-Rich Cannabis Extracts Over Purified CBD","Metaanálisis observacional. Con umbral ≥50% reducción de crisis, no hubo diferencia significativa (37% extractos vs 42% purificado, p=0.52).","Publicado en Front Neurol (no Pharmacol). Muestra equivalencia en respondedores clínicos."],
-      ["II","p","Gaston TE et al. Epilepsia 2017;58:1586-92","","n","Interactions between cannabidiol and commonly used antiepileptic drugs","81 pacientes con CBD: elevación significativa de niveles séricos de topiramato y rufinamida.","Demuestra la necesidad de medir niveles de topiramato al agregar CBD."],
-      ["III","e","Ríos-Pohl L et al. Epilepsia Open 2024;9:2546-52","10.1002/epi4.13081","v","Chemical analysis of cannabidiol substances used for refractory epilepsy","Análisis HPLC: productos caseros mostraron concentraciones de THC impredecibles de hasta 388 mg/mL.","Evidencia crítica sobre el peligro de usar concentrados caseros sin COA."]
-    ];
+  [
+    "I",
+    "p",
+    "Devinsky O et al. N Engl J Med 2017;376:2011-20",
+    "10.1056/NEJMoa1611618",
+    "v",
+    "Trial of Cannabidiol for Drug-Resistant Seizures in the Dravet Syndrome",
+    "Ensayo doble ciego en 120 niños y jóvenes con Dravet: CBD 20 mg/kg/día o placebo sobre su tratamiento habitual. Crisis convulsivas mensuales de 12.4 a 5.9 con CBD y de 14.9 a 14.1 con placebo (diferencia ajustada −22.8 puntos, p=0.01). Libres de crisis: 5 % contra 0 %, sin significancia. Más abandonos y más eventos adversos con CBD.",
+    "Su diagnóstico es «mioclónica», que no equivale a Dravet; este ensayo exigía Dravet. Demuestra que el CBD farmacéutico reduce crisis convulsivas en una encefalopatía con politerapia, pero también que el beneficio viene con más efectos adversos: por eso se piden laboratorios. Si el panel genético resultara SCN1A, esta sería su referencia principal."
+  ],
+  [
+    "I",
+    "p",
+    "Miller I et al. JAMA Neurol 2020;77:613-21",
+    "10.1001/jamaneurol.2020.0073",
+    "v",
+    "Dose-Ranging Effect of Adjunctive Oral Cannabidiol vs Placebo Dravet",
+    "Dravet, comparó 10 y 20 mg/kg/día contra placebo durante 14 semanas. Reducción de crisis convulsivas: 48.7 % con 10, 45.7 % con 20 y 26.9 % con placebo. Eficacia similar con mejor perfil de seguridad y tolerabilidad a 10 mg/kg/día.",
+    "Con la hipótesis de ~21 mg/mL el CBD actual andaría en 7-8 mg/kg/día: cerca de la dosis baja que ya mostró eficacia. Este ensayo desalienta subir a ciegas «por si acaso», porque duplicar dosis no mejoró el resultado aquí. Primero hay que confirmar cuánto CBD recibe en realidad."
+  ],
+  [
+    "I",
+    "p",
+    "Devinsky O et al. N Engl J Med 2018;378:1888-97",
+    "10.1056/NEJMoa1714631",
+    "v",
+    "Effect of Cannabidiol on Drop Seizures in the Lennox-Gastaut Syndrome",
+    "225 pacientes (2 a 55 años) con LGS: caídas −41.9 % con 20 mg/kg, −37.2 % con 10 mg/kg y −17.2 % con placebo, en dos tomas al día durante 14 semanas. Mediana basal de 85 caídas en 28 días.",
+    "Las crisis atónicas y mioclónico-atónicas comparten el riesgo de caídas. Si su niño tuviera caídas, este es el análogo más cercano; si lo suyo son mioclonías sin caídas, la aplicación es indirecta. Nótese que 10 mg/kg ya funcionó."
+  ],
+  [
+    "I",
+    "p",
+    "Thiele EA et al. Lancet 2018;391:1085-96",
+    "10.1016/S0140-6736(18)30136-3",
+    "v",
+    "Cannabidiol in patients with seizures associated with Lennox-Gastaut syndrome GWPCARE4",
+    "171 pacientes con LGS, CBD 20 mg/kg/día: caídas −43.9 % contra −21.8 % con placebo. Eventos adversos: 86 % con CBD y 69 % con placebo, la mayoría leves o moderados.",
+    "Confirma de forma independiente el resultado de Devinsky 2018. Para la familia: que casi 9 de cada 10 tengan algún efecto adverso explica por qué se vigilan sueño, apetito y diarrea; para neurología: hay que contrastarlo con la polifarmacia ya presente (clonazepam, topiramato)."
+  ],
+  [
+    "I",
+    "p",
+    "Thiele EA et al. JAMA Neurol 2021;78:285-92",
+    "10.1001/jamaneurol.2020.4607",
+    "v",
+    "Add-on Cannabidiol Treatment for Drug-Resistant Seizures in Tuberous Sclerosis Complex",
+    "224 pacientes con esclerosis tuberosa: 25 y 50 mg/kg/día redujeron crisis 49 % y 48 % contra 27 % con placebo. Transaminasas elevadas en 18.9 % con CBD y 0 % con placebo; 25 mg/kg dio menos eventos adversos que 50.",
+    "Duplicar la dosis no añadió eficacia y sí riesgo hepático. Respalda calendario de ALT/AST y la regla de no escalar sin motivo. No hay valproato en su esquema, que es el factor que más amplificó esta toxicidad en otros estudios."
+  ],
+  [
+    "II",
+    "p",
+    "Devinsky O et al. Lancet Neurol 2016;15:270-78",
+    "10.1016/S1474-4422(15)00379-8",
+    "v",
+    "Cannabidiol in patients with treatment-resistant epilepsy: an open-label interventional trial",
+    "Acceso expandido abierto en 11 centros de EE. UU., 214 pacientes de 1 a 30 años, sin control. 3 % abandonó por un evento adverso; 12 % tuvo eventos graves posiblemente relacionados, el más común estatus epiléptico (6 %).",
+    "Ejemplo de que el CBD puede, en algunos casos, empeorar crisis. Es la razón para anotar en el diario cualquier aumento de mioclonías tras un cambio de producto o dosis. Es abierto: el efecto placebo en niños es grande."
+  ],
+  [
+    "II",
+    "p",
+    "Szaflarski JP et al. Epilepsia 2018;59:1540-48 (resultados del programa de acceso expandido)",
+    "10.1111/epi.14477",
+    "v",
+    "Long-term safety and treatment effects of cannabidiol in children and adults with treatment-resistant epilepsies: Expanded access program results",
+    "607 pacientes con CBD farmacéutico, inicio 2-10 mg/kg/día hasta 25-50. 24 % se retiró, sobre todo por falta de eficacia (15 %) y eventos adversos (5 %). Cerca del 10 % tuvo eventos hepáticos y 75 % de ellos tomaba valproato.",
+    "Muestra la realidad de la vida diaria: no responde todo el mundo. Aclara que el riesgo hepático se concentra con valproato, que su niño no toma. (Corrijo el título que di antes.)"
+  ],
+  [
+    "II",
+    "p",
+    "Szaflarski JP et al. Epilepsia (resultados a 4 años, programa de acceso expandido)",
+    "10.1111/epi.17496",
+    "v",
+    "Long-term efficacy and safety of cannabidiol in patients with treatment-resistant epilepsies: 4-year results expanded access program",
+    "892 pacientes; los antiepilépticos más frecuentes fueron clobazam (47 %), levetiracetam (34 %) y valproato (28 %). 36 % se retiró (falta de eficacia 19 %, eventos adversos 7 %). Reducción sostenida de crisis hasta 192 semanas.",
+    "Un tercio de los pacientes ya tomaba levetiracetam, como su niño: el perfil de seguridad con ese fármaco es conocido. La mayoría de los eventos fue diarrea, crisis y somnolencia, que son los signos a vigilar."
+  ],
+  [
+    "II",
+    "pe",
+    "Pamplona FA et al. Front Neurol 2018;9:759 (no Front Pharmacol)",
+    "10.3389/fneur.2018.00759",
+    "v",
+    "Potential Clinical Benefits of CBD-Rich Cannabis Extracts Over Purified CBD in Treatment-Resistant Epilepsy",
+    "Metaanálisis de estudios observacionales. Mejoría referida: 71 % con extractos ricos en CBD (6.0 mg/kg/día) contra 46 % con CBD purificado (25.3 mg/kg/día). Con el umbral estándar (≥50 % menos crisis) no hubo diferencia: 37 % contra 42 % (p=0.52). Efectos adversos graves: 7 % contra 26 %. Hay fe de erratas.",
+    "Es el artículo que sostiene el entusiasmo por el espectro completo y también el que lo desinfla: sin control, sin cegamiento, con productos no estandarizados. Su conclusión útil es pedir ensayos con extractos estandarizados, no sustituir lo probado."
+  ],
+  [
+    "II",
+    "p",
+    "Geffrey AL et al. Epilepsia 2015;56:1246-51",
+    "10.1111/epi.13060",
+    "v",
+    "Drug-drug interaction between clobazam and cannabidiol in children with refractory epilepsy",
+    "13 de 25 niños tomaban clobazam; sus niveles y los de N-desmetilclobazam subieron con CBD. Se redujo la dosis de clobazam en 10 (77 %) y los efectos adversos (77 %) cedieron con esa reducción. Los autores concluyen que el CBD es seguro y eficaz con clobazam.",
+    "Su niño no toma clobazam, pero sí clonazepam, otra benzodiazepina. No hay datos publicados aquí sobre clonazepam; es una analogía a vigilar clínicamente: sedación, babeo, torpeza al subir CBD. Es la razón para escalar despacio."
+  ],
+  [
+    "II",
+    "p",
+    "Gaston TE et al. Epilepsia 2017;58(9):1586-92",
+    "",
+    "n",
+    "Interactions between cannabidiol and commonly used antiepileptic drugs",
+    "39 adultos y 42 niños con CBD de 5 a 50 mg/kg/día. Subieron topiramato, rufinamida y N-desmetilclobazam; bajó clobazam (p<0.01). Salvo clobazam, los cambios quedaron dentro del rango terapéutico. DOI no localizado en las fuentes consultadas.",
+    "El topiramato de su niño es uno de los afectados: puede acumularse (lentitud, parestesias, falta de apetito, acidosis). Es un argumento concreto para pedir niveles de topiramato al cambiar de CBD."
+  ],
+  [
+    "II",
+    "p",
+    "Epilepsia Open: análisis final de interacciones CBD y antiepilépticos (programa de acceso expandido)",
+    "10.1002/epi4.12815",
+    "v",
+    "Final analysis of potential drug-drug interactions between highly purified cannabidiol and anti-seizure medications in an open-label expanded access program",
+    "Con más CBD aumentaron clobazam, N-desmetilclobazam, valproato libre, felbamato, topiramato, perampanel y levetiracetam. Fuera del clobazam, la relevancia clínica de estos cambios fue incierta.",
+    "Es la fuente más cercana a su esquema: tanto topiramato como levetiracetam aparecen. Sugiere medir niveles y observar efectos en vez de asumir seguridad. No fijé autores ni año: dato no verificado."
+  ],
+  [
+    "III",
+    "e",
+    "Press CA et al. Epilepsy Behav 2015;45:49-52",
+    "10.1016/j.yebeh.2015.02.043",
+    "v",
+    "Parental reporting of response to oral cannabis extracts for treatment of refractory epilepsy",
+    "Revisión retrospectiva de 75 niños con extractos de cannabis orales. Respondedores según síndrome: Dravet 23 %, Doose 0 %, LGS 88.9 %. Los autores reconocen que no pudieron saber qué contenían los productos, solo lo que decían los padres, y la califican como evidencia clase III.",
+    "Si su niño tuviera síndrome de Doose, la señal para extractos en esta serie es mala (0 % respondedores, muestra pequeña). Es el único estudio de la lista con un dato sobre Doose; fortalece pedir el diagnóstico sindrómico exacto."
+  ],
+  [
+    "III",
+    "e",
+    "Ríos-Pohl L et al. Epilepsia Open 2024;9:2546-52",
+    "10.1002/epi4.13081",
+    "v",
+    "Chemical analysis and concentrations of cannabidiol substances used for refractory epilepsy in Chilean patients",
+    "Análisis HPLC: CBD bioequivalente 89.15 mg/mL con THC 0.015 mg/mL. Productos comerciales no licenciados: CBD de 0.1 a 78.5 mg/mL (promedio 25.41), THC de 0 a 2.43 mg/mL. Caseros: CBD de 0 a 6.6 mg/mL y THC de 0 a 388 mg/mL.",
+    "La advertencia más importante para el RH Oil 5 y para cualquier BHO casero: la etiqueta puede estar muy lejos de la realidad, y el THC puede ser mayor que el CBD. Justifica exigir análisis por lote antes de calcular una sola gota."
+  ],
+  [
+    "III",
+    "e",
+    "Resumen AES: extracto de cannabis con CBD >16:1 en epilepsia pediátrica refractaria",
+    "",
+    "n",
+    "Whole cannabis extract high concentration cannabidiol refractory pediatric epilepsies",
+    "Encuesta a padres de niños con epilepsia refractaria que usaron un extracto con CBD >16:1 respecto a otros cannabinoides; dosis terapéutica de CBD de 4 a 12 mg/kg/día; bien tolerado, con somnolencia e inestabilidad. Resumen de congreso, muestra pequeña, sin DOI.",
+    "De aquí sale la regla orientativa CBD:THC ≥16:1 de la calculadora BHO. Es evidencia débil, pero describe el único perfil de extracto pediátrico mencionado con una proporción definida.",
+    "https://aesnet.org/abstractslisting/whole-cannabis-extract-of-high-concentration-cannabidiol-may-calm-seizures-in-highly-refractory-pediatric-epilepsies"
+  ],
+  [
+    "III",
+    "pe",
+    "Gofshteyn JS et al. J Child Neurol 2017;32:35-40",
+    "10.1177/0883073816669450",
+    "v",
+    "Cannabidiol as a Potential Treatment for Febrile Infection-Related Epilepsy Syndrome (FIRES)",
+    "Serie abierta de 7 niños de 5 centros con FIRES refractario, tratados con CBD farmacéutico en fase aguda o crónica. Los autores la presentan como posible tratamiento, no como prueba. (Corrijo el DOI que di antes.)",
+    "No es su cuadro. Está aquí porque los documentos pegados la usan para afirmaciones amplias; con 7 pacientes y sin control no sostiene más que una hipótesis."
+  ],
+  [
+    "IV",
+    "m",
+    "Ibeas Bih C et al. Neurotherapeutics 2015;12:699-730",
+    "10.1007/s13311-015-0377-3",
+    "v",
+    "Molecular targets of cannabidiol in neurological disorders",
+    "Revisión crítica: se han descrito más de 65 dianas del CBD, pero pocas son plausibles en enfermedad neurológica; las más creíbles (VDAC1, GPR55, CaV3.x) se relacionan con el calcio intracelular. El CBD no actúa directo sobre el sistema endocannabinoide, salvo a concentraciones suprafisiológicas.",
+    "Explica por qué el CBD se suma a sus fármacos sin repetir mecanismo: clonazepam (GABA-A), levetiracetam (SV2A), topiramato (canales y GABA). También desinfla las listas largas de dianas que circulan en los textos pegados."
+  ],
+  [
+    "IV",
+    "m",
+    "Russo EB. Br J Pharmacol 2011;163:1344-64",
+    "10.1111/j.1476-5381.2011.01238.x",
+    "v",
+    "Taming THC: potential cannabis synergy and phytocannabinoid-terpenoid entourage effects",
+    "Revisión que propone la sinergia entre fitocannabinoides y terpenos como posibilidad. Incluye epilepsia entre las áreas de interés y dice que la sinergia, «si se demuestra», abriría nuevos productos.",
+    "Es la base teórica del «efecto séquito». Importa leerlo bien: es una propuesta, con métodos futuros, no una prueba clínica, y no incluye ensayos pediátricos en epilepsia."
+  ],
+  [
+    "IV",
+    "m",
+    "Santiago M et al. Cannabis Cannabinoid Res 2019;4(3)",
+    "10.1089/can.2019.0016",
+    "v",
+    "Absence of Entourage: Terpenoids Commonly Found in Cannabis sativa Do Not Modulate the Functional Activity of Δ9-THC at Human CB1 and CB2 Receptors",
+    "Seis terpenos frecuentes (pineno, cariofileno, linalool, limoneno, mirceno) no activaron CB1 ni CB2 ni modificaron la señal del THC en células humanas (CB1 59 % contra 55 % con terpenos). (Corrijo el DOI que di antes.)",
+    "Contradice, en esos receptores, uno de los pilares del «espectro completo». No excluye otras acciones de los terpenos, pero deja sin base el argumento de que mejoran el CBD en CB1/CB2."
+  ],
+  [
+    "V",
+    "m",
+    "Cogan PS. Expert Rev Clin Pharmacol 2020 (DOI visto en una fuente secundaria)",
+    "10.1080/17512433.2020.1721281",
+    "q",
+    "The entourage effect or hodge-podge hashish: the questionable rebranding, marketing, and expectations of cannabis polypharmacy",
+    "Revisión crítica: el efecto séquito nació como idea hipotética en 1998 y se promueve en marketing; las afirmaciones invocan actividades farmacológicas mal definidas, con efectos adversos posibles y no solo beneficios.",
+    "Contrapeso útil: si algún proveedor ofrece «espectro completo» como ventaja, sirve para pedirle datos por lote y ensayos, no argumentos."
+  ],
+  [
+    "V",
+    "m",
+    "Cannabis Cannabinoid Res 2024;9(5):1202-16 (revisión narrativa)",
+    "10.1089/can.2023.0052",
+    "v",
+    "Does the Entourage Effect in Cannabinoids Exist? A Narrative Scoping Review",
+    "Concluye que la evidencia clínica de eficacia, seguridad y regulación para productos basados en la hipótesis del séquito es limitada; pide cautela a reguladores, industria y profesionales para no presentarla como fenómeno probado.",
+    "Actualiza a 2024 la crítica anterior. Para su caso: apoya pedir que cualquier propuesta de espectro completo venga de la mano de neurología y con análisis, no como sustituto del CBD probado."
+  ],
+  [
+    "III",
+    "e",
+    "Tzadok M et al. Seizure 2016;35:41-44",
+    "10.1016/j.seizure.2016.01.004",
+    "v",
+    "CBD-enriched medical cannabis for intractable pediatric epilepsy: The current Israeli experience",
+    "74 pacientes de 1 a 18 años, resistentes a más de 7 antiepilépticos, con aceite CBD:THC 20:1 (CBD de 1 a 20 mg/kg/día). 66 de 74 (89 %) refirieron menos crisis: 18 % de 75-100 % y 34 % de 50-75 %. 5 (7 %) empeoraron y suspendieron. Efectos: somnolencia, fatiga, digestivos, irritabilidad.",
+    "Primer dato con THC a proporción definida. Es retrospectivo y referido por padres. Para su niño: el THC residual de un 20:1 es una fracción pequeña del de un extracto THC-dominante, y aun así hubo 7 % de empeoramiento: exige diario y reversión pactada."
+  ],
+  [
+    "III",
+    "e",
+    "Hausman-Kedem M et al. 2018 (estudio observacional longitudinal)",
+    "",
+    "n",
+    "Efficacy of CBD-enriched medical cannabis for treatment of refractory epilepsy in children and adolescents observational longitudinal study",
+    "57 pacientes de 1 a 20 años con extracto 20:1 durante al menos 3 meses (mediana de seguimiento 18 meses). En 46 evaluables, CBD medio 11.4 mg/kg/día; 56 % redujo crisis al menos 50 % (el resumen dice «≤50 %», parece errata). Mejor respuesta con inicio antes de los 10 años y CBD >11 mg/kg/día. Efectos adversos en 46 %, principal causa de suspensión. No varió por etiología ni por variedad.",
+    "Con una proporción conocida hubo respuesta, pero casi la mitad tuvo efectos adversos. La variedad no importó: lo que importa es la proporción y la dosis medidas. DOI no localizado en las fuentes consultadas.",
+    "https://cris.tau.ac.il/en/publications/efficacy-of-cbd-enriched-medical-cannabis-for-treatment-of-refrac/"
+  ]
+];
 
     function renderEvidence() {
       // Filter Buttons setup
@@ -2035,16 +2277,137 @@
 
     // Tab 6: Workflow Roadmap
     function renderWorkflow() {
-      const steps = [
-        { title: '1. Diagnóstico Diferencial Sindrómico', role: 'Neuropediatría', desc: 'Video-EEG de sueño/vigilia, Resonancia Magnética de alto campo, panel genético de epilepsias y tamiz metabólico. Precisar si corresponde a Síndrome de Doose, Dravet, LGS o epilepsia mioclónica progresiva.', cond: [['El síndrome está definido', 'Seguir ruta clínica específica'], ['Sin síndrome definido', 'Completar estudio genético antes de modificar cannabinoides']] },
-        { title: '2. Conciliación Farmacéutica', role: 'QFB + Neuropediatría', desc: 'Verificar concentraciones exactas y lotes de Kriadex (1 gota = 0.1 mg), Tamlet-S, mg por tableta de Topamax y Certificado de Análisis (COA) del aceite CBD.', cond: [['No existe COA verificado', 'Pausar escalado de dosis hasta obtenerlo']] },
-        { title: '3. Mapa de Carga Metabólica', role: 'Farmacología Clínica', desc: 'Evaluar vías CYP450: clonazepam (CYP3A4) y CBD (CYP2C19/3A4). Evaluar suma de sedación central por benzodiazepina y topiramato.', cond: [['Presenta somnolencia severa o ataxia', 'Avisar a neuropediatría antes de cambiar cualquier dosis']] },
-        { title: '4. Pruebas de Línea Base', role: 'Laboratorio Clínico', desc: 'Análisis de ALT, AST, bilirrubina, biometría hemática, bicarbonato sérico y niveles de topiramato. Registro de diario de crisis por 4 semanas.', cond: [['ALT o AST > 3 veces límite normal', 'Diferir inicio de titulación']] },
-        { title: '5. Elección de Producto Estandarizado', role: 'Neuropediatría + Familia', desc: 'Seleccionar entre CBD purificado farmacéutico (Dravet/LGS/TSC) o extracto de espectro completo estandarizado con proporción CBD:THC ≥ 16:1.', cond: [['Producto sin análisis de solventes', 'Rechazar uso pediátrico']] },
-        { title: '6. Puente y Transición', role: 'QFB', desc: 'Igualar exactamente la dosis miligramo/kilogramo de CBD del producto anterior. Mantener constantes la dieta y vehículo graso de administración.', cond: [['Cambio en vehículo o comida alta en grasa', 'Ajustar horarios; exposición puede variar hasta 5 veces']] },
-        { title: '7. Titulación Semanal', role: 'Neuropediatría', desc: 'Aumentar en escalones semanales de 1–2 mg/kg/día con monitoreo de transaminasas a las semanas 2–4 y vigilancia de sedación.', cond: [['Somnolencia diurna excesiva', 'Evaluar reducción paulatina de clonazepam']] },
-        { title: '8. Evaluación a 12 Semanas', role: 'Neuropediatría', desc: 'Comparar frecuencia de crisis contra línea base de 4 semanas.', cond: [['≥ 50% reducción de mioclonías', 'Mantener esquema y consolidar'], ['< 25% respuesta', 'Desescalar y retornar a esquema previo']] }
-      ];
+      const rawSteps = [
+  [
+    "Diagnóstico diferencial",
+    "Neuropediatría",
+    "Video-EEG con mioclonías, resonancia, panel genético de epilepsias y estudio metabólico; definir si es Doose, Dravet, LGS o mioclónica progresiva.",
+    [
+      [
+        "el síndrome está definido",
+        "seguir su ruta específica (en Dravet, LGS y TSC el CBD purificado tiene ensayos)"
+      ],
+      [
+        "no está definido",
+        "completar estudios antes de cambiar el CBD"
+      ]
+    ],
+    "Press 2015: Doose 0 % de respondedores a extractos. El síndrome predice la respuesta más que el producto."
+  ],
+  [
+    "Conciliación de medicamentos",
+    "QFB + neuropediatría",
+    "Confirmar concentración y lote de Kriadex (1 gota = 0.1 mg), Tamlet-S, mg por tableta de Topamax, RH Oil 5 y Cina 0/1; confirmar peso.",
+    [
+      [
+        "no existe certificado (COA) del CBD",
+        "no escalar ni sustituir hasta obtenerlo"
+      ]
+    ],
+    "Ríos-Pohl 2024: la etiqueta puede estar lejos de la realidad."
+  ],
+  [
+    "Mapa de carga actual",
+    "Análisis",
+    "CYP: clonazepam (3A4) y CBD (2C19, 3A4); levetiracetam y topiramato salen sobre todo por riñón. Sedación: clonazepam + topiramato + CBD se suman. Sin valproato.",
+    [
+      [
+        "hay somnolencia, babeo o ataxia",
+        "avisar al neurólogo antes de cualquier cambio"
+      ]
+    ],
+    "La mayor interacción del esquema es el CBD sobre clonazepam y topiramato, no la politerapia en sí."
+  ],
+  [
+    "Línea base",
+    "Neuropediatría + laboratorio",
+    "ALT, AST, bilirrubina, BH, bicarbonato, creatinina, quizá niveles de topiramato; diario de crisis durante 4 semanas.",
+    [
+      [
+        "ALT o AST >3 veces el límite normal",
+        "pausar el plan y consultar"
+      ]
+    ],
+    "Sin línea base no se puede atribuir efecto ni toxicidad."
+  ],
+  [
+    "Elección de producto",
+    "Neuropediatría + familia",
+    "A: CBD purificado si es Dravet, LGS o TSC. B: espectro completo estandarizado con COA y CBD:THC ≥16:1, solo si neurología lo acepta. C: extracto casero o BHO.",
+    [
+      [
+        "es casero o THC-dominante",
+        "no iniciar sin análisis completo de cannabinoides y solventes"
+      ]
+    ],
+    "Tzadok y Hausman-Kedem usaron 20:1; ninguno THC-dominante."
+  ],
+  [
+    "Puente",
+    "QFB",
+    "Igualar el CBD actual (mg/kg) con el producto estandarizado sin subir; cambiar una sola cosa y mantener comida y vehículo constantes.",
+    [
+      [
+        "cambia la comida o el vehículo graso",
+        "la exposición puede multiplicarse (comida alta en grasa: Cmax ×5 según ficha)"
+      ]
+    ],
+    "Cambiar el vehículo equivale a cambiar la dosis."
+  ],
+  [
+    "Titulación y seguimiento",
+    "Neuropediatría + QFB",
+    "Semanas 0, 2, 4, 8 y 12: diario, sedación, peso y apetito; ALT/AST en semanas 2-4; QFB revisa lote y jeringa.",
+    [
+      [
+        "somnolencia",
+        "el neurólogo valora reducir clonazepam"
+      ],
+      [
+        "más mioclonías",
+        "volver a la dosis previa"
+      ],
+      [
+        "ALT/AST >3 veces",
+        "detener el escalado"
+      ]
+    ],
+    "Hausman-Kedem: casi la mitad tuvo efectos adversos; vigilar importa."
+  ],
+  [
+    "Evaluación a 12 semanas",
+    "Neuropediatría",
+    "Comparar con la línea base y repetir EEG.",
+    [
+      [
+        "≥50 % menos mioclonías",
+        "mantener"
+      ],
+      [
+        "25-49 %",
+        "decide neurología"
+      ],
+      [
+        "<25 % o empeora",
+        "volver al esquema previo"
+      ]
+    ],
+    "Meta definida de antemano para evitar sesgo de expectativa."
+  ],
+  [
+    "Simplificación",
+    "Neuropediatría",
+    "Si la respuesta se sostiene, valorar reducir despacio el fármaco más sedante.",
+    [
+      [
+        "hay respuesta sostenida",
+        "reducir carga CYP y sedativa de a un fármaco"
+      ]
+    ],
+    "Precedente: con clobazam se redujo la dosis en 77 % (Geffrey 2015); con clonazepam no hay datos."
+  ]
+];
+      const steps = rawSteps.map(x => ({ title: x[0], role: x[1], desc: x[2], cond: x[3], insight: x[4] }));
 
       $('workflowStepsContainer').innerHTML = steps.map((st, i) => `
         <div class="workflow-step" data-step="${i + 1}">
